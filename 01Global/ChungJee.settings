@@ -1,0 +1,77 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="" GeneratedClassName="ChungJee">
+  <Profiles />
+  <Settings>
+    <Setting Name="strNasHostName" Type="(Web Service URL)" Scope="User">
+      <Value Profile="(Default)">http://120.211.170.8:5000</Value>
+    </Setting>
+    <Setting Name="strNasUserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">zhanglj</Value>
+    </Setting>
+    <Setting Name="strNasPassWord" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="con_BASE_DATA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">基础数据</Value>
+    </Setting>
+    <Setting Name="strNasSid" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="con_COMPANY_INFO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">单位信息表</Value>
+    </Setting>
+    <Setting Name="con_NAS_HOME_FOLDERNAME" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/home/excelWeview2/</Value>
+    </Setting>
+    <Setting Name="con_START_DATE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">开始日期：</Value>
+    </Setting>
+    <Setting Name="con_END_DATE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">结束日期：</Value>
+    </Setting>
+    <Setting Name="strTabName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">数据聚合</Value>
+    </Setting>
+    <Setting Name="jsonUrlList" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{"data":[{"url":"https://e.dianping.com/couponrecord/queryCouponRecordDetails","oldValue":":20","newValue":":300"},{"url":"https://e.dianping.com/couponrecord/consumeItemsNewDownload"},{"url":"https://e.dianping.com/smartBill/download/downloadLink"},{"url":"https://e.dianping.com/gateway/adviser/data?componentId=flowTableDownloadPCAsync&amp;pageType=flowAnalysis"},{"url":"/s","enable":"false"},{"url":"https://mss-shon.sankuai.com/merchant-adviser-process/"},{"url":"https://mss-shon.sankuai.com/settle/382206_%E6%89%93%E6%AC%BE%E8%AE%B0%E5%BD%95"},{"url":"https://mss-shon.sankuai.com/settle/382206_%E5%9B%A2%E8%B4%AD%E6%89%93%E6%AC%BE%E8%AE%B0%E5%BD%95"},{"url":"https://mss-shon.sankuai.com/settle/382206_团购收益明细"},{"url":"https://mss-shon.sankuai.com/settle/382206_%E5%9B%A2%E8%B4%AD%E5%B7%B2%E7%BB%93%E7%AE%97%E8%B4%A6%E5%8D%95%E6%98%8E%E7%BB%86"}]}</Value>
+    </Setting>
+    <Setting Name="strHomePage" Type="(Web Service URL)" Scope="User">
+      <Value Profile="(Default)">https://e.dianping.com/</Value>
+    </Setting>
+    <Setting Name="jsonBottomButtonScript" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{"data":[{"url":"https://e.dianping.com/app/np-mer-voucher-web-static/records","lbPage":"document.getElementsByTagName('iframe')[0].contentDocument.getElementsByClassName('ant-pagination-total-text')[0].innerText","tooltxtForward":"if (document.querySelector('iframe').contentDocument.getElementsByClassName(' ant-pagination-prev')[0].className==' ant-pagination-prev'){document.querySelector('iframe').contentDocument.getElementsByClassName(' ant-pagination-prev')[0].click();true}else{false}","tooltxtBackward":"if (document.querySelector('iframe').contentDocument.getElementsByClassName(' ant-pagination-next')[0].className==' ant-pagination-next'){document.querySelector('iframe').contentDocument.getElementsByClassName(' ant-pagination-next')[0].click();true}else{false}"},{"url":"https://e.dianping.com/couponrecord/queryCouponRecordDetails/dsfsd","lbPage":"document.getElementsByTagName('iframe')[0].contentDocument.getElementsByClassName('ant-pagination-total-text')[0].innerText","btnForward":"document.getElementsByTagName('iframe')[0].contentDocument.getElementsByClassName('anticon anticon-left')[1].click()","btnBackward":"document.getElementsByTagName('iframe')[0].contentDocument.getElementsByClassName('anticon anticon-right')[1].click()"}]}</Value>
+    </Setting>
+    <Setting Name="strNoVBAFunction" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Sub strVBAFunctionName(strFileName As String)
+Application.ScreenUpdating = False: Application.EnableEvents = False
+Dim strRangeAddress As String, strListObjectName As String, wbDownload As Workbook, shDownload As Worksheet, shCurrent As Worksheet, xlApp As Application
+Dim rowItem As Range, intOffsetRow As Integer: intOffsetRow = 0
+Set xlApp = New Application: Set wbDownload = xlApp.Workbooks.Open(strFileName): Set shDownload = wbDownload.Sheets(1)
+intOffsetRow = shDownload.UsedRange.Columns(shDownload.UsedRange.Columns.Count).Cells(1, 1).End(Excel.xlDown).Row
+If intOffsetRow = shDownload.UsedRange.Rows.Count Then intOffsetRow = 0
+Dim regEx As Object:  Set regEx = CreateObject("VBScript.RegExp"): regEx.Global = True: regEx.Pattern = "[\u4e00-\u9fa5]+"
+strListObjectName = regEx.Replace(strFileName, ""): If strListObjectName = "" Then strListObjectName = "TEMP"
+strRangeAddress = shDownload.UsedRange.Offset(intOffsetRow).Resize(shDownload.UsedRange.Rows.Count - intOffsetRow).Address
+Set shCurrent = ThisWorkbook.ActiveSheet: shCurrent.Cells.Clear
+shCurrent.Range(shDownload.UsedRange.Address).Value = shDownload.UsedRange.Value
+wbDownload.Close SaveChanges:=False: Kill strFileName: xlApp.Quit: Set xlApp = Nothing: Set wbDownload = Nothing: Set shDownload = Nothing
+On Error Resume Next: shCurrent.AutoFilterMode = False
+With shCurrent.ListObjects.Add(xlSrcRange, shCurrent.Range(strRangeAddress), , xlYes)
+    .Name = strListObjectName: .DataBodyRange.Font.Size = 9: .DataBodyRange.HorizontalAlignment = xlCenter: .HeaderRowRange.HorizontalAlignment = xlCenter: .ShowAutoFilterDropDown = False
+End With
+Application.ScreenUpdating = True: Application.EnableEvents = True
+End Sub</Value>
+    </Setting>
+    <Setting Name="jsonRequestFilter" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="strLoadFormFunction" Type="System.String" Scope="User">
+      <Value Profile="(Default)">public sub frmShow()
+If frmLoading_ChungJee.Visible = False Then frmLoading_ChungJee.Show 0
+end sub
+public sub frmHidden()
+If frmLoading_ChungJee.Visible = True Then frmLoading_ChungJee.Hide
+end sub</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
