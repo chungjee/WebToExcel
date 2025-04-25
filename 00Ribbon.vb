@@ -75,4 +75,8 @@ Public Class Ribbon
     Private Sub btnResponseFilter_Click(sender As Object, e As RibbonControlEventArgs) Handles btnResponseFilter.Click
         Globals.ThisAddIn.tpConstomWebVieTaskPanel.MenuItemResponseFilter.PerformClick()
     End Sub
+
+    Private Sub btnDouYin_Click(sender As Object, e As RibbonControlEventArgs) Handles btnDouYin.Click
+        btnClick(sender)
+    End Sub
 End Class

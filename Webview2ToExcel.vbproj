@@ -292,6 +292,7 @@
     </Compile>
     <Compile Include="04Model\DeepSeek.vb" />
     <Compile Include="04Model\MdlLoad.vb" />
+    <Compile Include="04Model\OpenRouter.vb" />
     <Compile Include="04Model\NasModel.vb" />
     <Compile Include="05Class\DataAggregate.vb" />
     <Compile Include="05Class\IInputStream.vb" />
@@ -388,6 +389,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\hura1zfr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ed2m9iwp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\112.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\l8g7ce39.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\屏幕截图_25-4-2025_16414_image.baidu.com.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2tshc3uf.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

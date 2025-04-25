@@ -142,4 +142,22 @@ Public Class frmAnalysiserSetup
     Private Sub txtFilterUrl_TextChanged(sender As Object, e As EventArgs) Handles txtFilterUrl.TextChanged
 
     End Sub
+
+    Private Sub trvResponseFilter_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles trvResponseFilter.AfterCheck
+        If e.Node.Nodes.Count > 0 Then
+            If e.Node.Checked Then
+                For Each childNode As TreeNode In e.Node.Nodes
+                    childNode.Checked = True
+                Next childNode
+            Else
+                For Each childNode As TreeNode In e.Node.Nodes
+                    UncheckNodeAndChildren(childNode)
+                Next childNode
+            End If
+        End If
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+    End Sub
 End Class

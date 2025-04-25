@@ -5,8 +5,7 @@ Imports System.Web.UI.WebControls
 Imports Microsoft.Web.WebView2.Core
 Imports Newtonsoft.Json.Linq
 
-Module WebViewEvents
-    'WebView2控件事件处理程序
+Module WebViewEvents  'WebView2控件事件处理模块
     Private strCurrentJsonUrlListItem As String
     Dim strOldValue As String
     Dim strNewValue As String
@@ -174,6 +173,7 @@ Module WebViewEvents
             xlApp.Run("frmHidden")
         Else
             CType(sender, Microsoft.Web.WebView2.Core.CoreWebView2).Navigate(e.Uri)
+            e.Handled = True
         End If
     End Sub 'webview2控件新窗口请求事件执行程序
 
@@ -215,7 +215,7 @@ Module WebViewEvents
             .catch(error => console.error('Error fetching blob:', error));
     "
         Await Globals.ThisAddIn.tpConstomWebVieTaskPanel.wvCoreWevview2.ExecuteScriptAsync(script)
-    End Sub
+    End Sub ' webview2控件处理blob URL的函数，通过让JavaScript获取blob数据，并将数据通过postMessage发送到webview2控件，webview2控件再通过webmessagereceived事件接收数据
     Public Sub SaveBase64ToFile(base64Data As String, filePath As String)
         Dim bytes As Byte() = Convert.FromBase64String(base64Data.Replace("data:text/plain;base64,", "").Replace("""", ""))
         File.WriteAllBytes(filePath, bytes)
@@ -223,5 +223,5 @@ Module WebViewEvents
         Dim uriRequestFile As New Uri("http://strVBAFunctionName")
         MdlLoad.runVBAFunction(uriRequestFile, filePath)
 
-    End Sub
+    End Sub ' webview2控件保存base64数据到文件的函数
 End Module

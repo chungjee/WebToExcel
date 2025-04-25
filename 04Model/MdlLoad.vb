@@ -134,17 +134,19 @@ Module MdlLoad
         End Try
     End Function
 
+    '根据URI获取VBA函数名称，模块名称，调用VBA函数，并传递参数,如果VBA函数不存在，下载VBA函数代码文件，并加载VBA函数代码，如果VBA函数代码文件不存在，提示下载失败；如果VBA函数代码文件存在，加载VBA函数代码，并调用VBA函数，如果加载失败，提示加载失败；如果加载成功，调用VBA函数，并传递参数，如果调用失败，提示调用失败；如果调用成功，返回True，否则返回False
     Public Function runVBAFunction(ByVal uriToVBAFuctionName As Uri, ByVal strParameters As String) As Boolean
         Dim strVBAFunctionName As String, strVBModuleName As String
         If uriToVBAFuctionName.AbsolutePath <> "/" Then
             If uriToVBAFuctionName.Query.Length > 1 Then
-                strVBAFunctionName = uriToVBAFuctionName.Query
+                strVBAFunctionName = uriToVBAFuctionName.AbsolutePath & uriToVBAFuctionName.Query
             Else
                 strVBAFunctionName = uriToVBAFuctionName.AbsolutePath
             End If
         Else
             strVBAFunctionName = uriToVBAFuctionName.AbsoluteUri.Substring(uriToVBAFuctionName.AbsoluteUri.LastIndexOf("://") + 3)
-        End If
+        End If '根据URI获取VBA函数名称和模块名称，如果URI中没有绝对路径，则使用URI的主机名称作为函数名称
+
         strVBAFunctionName = System.Web.HttpUtility.UrlEncode(Regex.Replace(strVBAFunctionName, "[^A-Z0-9\u4e00-\u9fa5a-zA-Z0-9]", "")）
         strVBAFunctionName = UCase(Regex.Replace(strVBAFunctionName, "[^a-zA-Z0-9]", ""))
 
@@ -152,8 +154,8 @@ Module MdlLoad
             strVBModuleName = strVBAFunctionName.Substring(0, 30)
         Else
             strVBModuleName = strVBAFunctionName
-        End If
-        Debug.WriteLine("strVBAFunctionName: " & strVBAFunctionName & "长度：" & strVBAFunctionName.Length)
+        End If ' '根据URI获取VBA函数名称和模块名称，如果函数名称长度大于30，则使用前30个字符作为模块名称，否则使用函数名称作为模块名称
+        'Debug.WriteLine("strVBAFunctionName: " & strVBAFunctionName & "长度：" & strVBAFunctionName.Length)
         'Debug.WriteLine("strResponse: " & strResponse)
         Try
             xlApp.Run(strVBModuleName & "." & strVBAFunctionName, strParameters)
@@ -236,8 +238,8 @@ Module MdlLoad
                                         End Try '下载代码文件成功，重新加载VBA模块代码，并删除代码文件
                                     Else
                                         If InStr(strParameters, ".xls") Then
-                                            .CodeModule.AddFromString(My.ChungJee.Default.strNoVBAFunction)
-                                            xlApp.Run(strVBModuleName & ".strVBAFunctionName", strParameters)
+                                            .CodeModule.AddFromString(My.ChungJee.Default.strNoVBAFunction.Replace("strVBAFunctionName", strVBAFunctionName))
+                                            xlApp.Run(strVBAFunctionName, strParameters)
                                             Return True
                                         End If
                                     End If '代码文件下载成功，重新加载VBA模块代码
@@ -256,7 +258,7 @@ Module MdlLoad
 
             Return False
         End Try
-    End Function '分析响应数据，调用VBA函数处理数据
+    End Function
 
     Public Sub getXMLData(ByVal XMLStr As String)
         Dim objXmlDoc As New XmlDocument(), strFileName As String = "temp.xls", strRangeAdress As String, strListObjectName As String

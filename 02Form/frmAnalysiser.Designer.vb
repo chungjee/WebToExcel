@@ -22,10 +22,13 @@ Partial Class frmAnalysiserSetup
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim TreeNode1 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("网络响应过滤器")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAnalysiserSetup))
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnAddFilter = New System.Windows.Forms.Button()
         Me.txtFileName = New System.Windows.Forms.TextBox()
         Me.btnBrowseFile = New System.Windows.Forms.Button()
         Me.btnUploadFile = New System.Windows.Forms.Button()
@@ -33,14 +36,18 @@ Partial Class frmAnalysiserSetup
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.trvResponseFilter = New System.Windows.Forms.TreeView()
+        Me.ContextMenuReaponseFilter = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.删除节点ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.更新节点ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.插入节点ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.重新加载ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtContentEdit = New System.Windows.Forms.TextBox()
-        Me.btnAddFilter = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        Me.ContextMenuReaponseFilter.SuspendLayout()
         Me.SuspendLayout()
         '
         'OpenFileDialog1
@@ -59,6 +66,26 @@ Partial Class frmAnalysiserSetup
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(984, 30)
         Me.Panel1.TabIndex = 3
+        '
+        'Button1
+        '
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Button1.Location = New System.Drawing.Point(335, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 30)
+        Me.Button1.TabIndex = 9
+        Me.Button1.Text = "字体设置"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'btnAddFilter
+        '
+        Me.btnAddFilter.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnAddFilter.Location = New System.Drawing.Point(235, 0)
+        Me.btnAddFilter.Name = "btnAddFilter"
+        Me.btnAddFilter.Size = New System.Drawing.Size(100, 30)
+        Me.btnAddFilter.TabIndex = 8
+        Me.btnAddFilter.Text = "添加过滤器"
+        Me.btnAddFilter.UseVisualStyleBackColor = True
         '
         'txtFileName
         '
@@ -99,7 +126,7 @@ Partial Class frmAnalysiserSetup
         Me.txtFilterUrl.Location = New System.Drawing.Point(0, 0)
         Me.txtFilterUrl.Multiline = True
         Me.txtFilterUrl.Name = "txtFilterUrl"
-        Me.txtFilterUrl.Size = New System.Drawing.Size(243, 30)
+        Me.txtFilterUrl.Size = New System.Drawing.Size(235, 30)
         Me.txtFilterUrl.TabIndex = 3
         '
         'Panel2
@@ -131,6 +158,7 @@ Partial Class frmAnalysiserSetup
         '
         Me.trvResponseFilter.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.trvResponseFilter.CheckBoxes = True
+        Me.trvResponseFilter.ContextMenuStrip = Me.ContextMenuReaponseFilter
         Me.trvResponseFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.trvResponseFilter.Font = New System.Drawing.Font("宋体", 12.0!)
         Me.trvResponseFilter.FullRowSelect = True
@@ -143,6 +171,42 @@ Partial Class frmAnalysiserSetup
         Me.trvResponseFilter.Size = New System.Drawing.Size(332, 496)
         Me.trvResponseFilter.TabIndex = 7
         '
+        'ContextMenuReaponseFilter
+        '
+        Me.ContextMenuReaponseFilter.Font = New System.Drawing.Font("Microsoft YaHei UI", 10.0!)
+        Me.ContextMenuReaponseFilter.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ContextMenuReaponseFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.删除节点ToolStripMenuItem, Me.更新节点ToolStripMenuItem, Me.插入节点ToolStripMenuItem, Me.重新加载ToolStripMenuItem})
+        Me.ContextMenuReaponseFilter.Name = "ContextMenuReaponseFilter"
+        Me.ContextMenuReaponseFilter.Size = New System.Drawing.Size(153, 116)
+        '
+        '删除节点ToolStripMenuItem
+        '
+        Me.删除节点ToolStripMenuItem.Image = Global.Webview2ToExcel.My.Resources.Resources._112
+        Me.删除节点ToolStripMenuItem.Name = "删除节点ToolStripMenuItem"
+        Me.删除节点ToolStripMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.删除节点ToolStripMenuItem.Text = "删除节点"
+        '
+        '更新节点ToolStripMenuItem
+        '
+        Me.更新节点ToolStripMenuItem.Image = Global.Webview2ToExcel.My.Resources.Resources.l8g7ce39
+        Me.更新节点ToolStripMenuItem.Name = "更新节点ToolStripMenuItem"
+        Me.更新节点ToolStripMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.更新节点ToolStripMenuItem.Text = "更新节点"
+        '
+        '插入节点ToolStripMenuItem
+        '
+        Me.插入节点ToolStripMenuItem.Image = Global.Webview2ToExcel.My.Resources.Resources.屏幕截图_25_4_2025_16414_image_baidu_com
+        Me.插入节点ToolStripMenuItem.Name = "插入节点ToolStripMenuItem"
+        Me.插入节点ToolStripMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.插入节点ToolStripMenuItem.Text = "插入节点"
+        '
+        '重新加载ToolStripMenuItem
+        '
+        Me.重新加载ToolStripMenuItem.Image = Global.Webview2ToExcel.My.Resources.Resources._2tshc3uf
+        Me.重新加载ToolStripMenuItem.Name = "重新加载ToolStripMenuItem"
+        Me.重新加载ToolStripMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.重新加载ToolStripMenuItem.Text = "重新加载"
+        '
         'txtContentEdit
         '
         Me.txtContentEdit.BorderStyle = System.Windows.Forms.BorderStyle.None
@@ -153,26 +217,6 @@ Partial Class frmAnalysiserSetup
         Me.txtContentEdit.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtContentEdit.Size = New System.Drawing.Size(648, 496)
         Me.txtContentEdit.TabIndex = 8
-        '
-        'btnAddFilter
-        '
-        Me.btnAddFilter.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnAddFilter.Location = New System.Drawing.Point(243, 0)
-        Me.btnAddFilter.Name = "btnAddFilter"
-        Me.btnAddFilter.Size = New System.Drawing.Size(90, 30)
-        Me.btnAddFilter.TabIndex = 8
-        Me.btnAddFilter.Text = "添加过滤器"
-        Me.btnAddFilter.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Button1.Location = New System.Drawing.Point(333, 0)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 30)
-        Me.Button1.TabIndex = 9
-        Me.Button1.Text = "字体设置"
-        Me.Button1.UseVisualStyleBackColor = True
         '
         'frmAnalysiserSetup
         '
@@ -195,6 +239,7 @@ Partial Class frmAnalysiserSetup
         Me.SplitContainer1.Panel2.PerformLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
+        Me.ContextMenuReaponseFilter.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -210,4 +255,9 @@ Partial Class frmAnalysiserSetup
     Friend WithEvents txtContentEdit As Windows.Forms.TextBox
     Friend WithEvents btnAddFilter As Windows.Forms.Button
     Friend WithEvents Button1 As Windows.Forms.Button
+    Friend WithEvents ContextMenuReaponseFilter As Windows.Forms.ContextMenuStrip
+    Friend WithEvents 删除节点ToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents 更新节点ToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents 插入节点ToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents 重新加载ToolStripMenuItem As Windows.Forms.ToolStripMenuItem
 End Class
