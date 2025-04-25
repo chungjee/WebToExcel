@@ -43,15 +43,18 @@ Public Class ThisAddIn
             .tpConstomWebVieTaskPanel.wvCoreWevview2.AddWebResourceRequestedFilter("*://e.dianping.com/*", CoreWebView2WebResourceContext.XmlHttpRequest)
             .tpConstomWebVieTaskPanel.wvCoreWevview2.AddWebResourceRequestedFilter("*://mss-shon.sankuai.com/*", CoreWebView2WebResourceContext.All)
             AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.WebResourceRequested, AddressOf WebViewEvents.EventWebResourceRequested
-            AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.DownloadStarting, AddressOf WebViewEvents.EventDownloadStarting
             AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.WebResourceResponseReceived, AddressOf WebViewEvents.EventWebResourceResponseReceived
+            AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.DownloadStarting, AddressOf WebViewEvents.EventDownloadStarting
+
             AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.WebMessageReceived, AddressOf WebViewEvents.EventWebMessageReceived
             AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.NavigationStarting, AddressOf WebViewEvents.EventNavigationStarting
             AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.NavigationCompleted, AddressOf WebViewEvents.EventNavigationCompleted
-            AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.FrameNavigationStarting, AddressOf WebViewEvents.EventFrameNavigationStarting
-            AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.FrameNavigationCompleted, AddressOf WebViewEvents.EventNavigationCompleted
+
             AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.DOMContentLoaded, AddressOf WebViewEvents.EventDOMContentLoaded
             AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.NewWindowRequested, AddressOf WebViewEvents.EventNewWindowRequested
+
+            AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.FrameNavigationStarting, AddressOf WebViewEvents.EventFrameNavigationStarting
+            AddHandler .tpConstomWebVieTaskPanel.wvCoreWevview2.FrameNavigationCompleted, AddressOf WebViewEvents.EventFrameNavigationCompleted
             Try
                 Dim objJsonUrlListTemp As JObject = Newtonsoft.Json.Linq.JObject.Parse(My.ChungJee.Default.jsonUrlList)
                 .jsonResponseFilter = New Newtonsoft.Json.Linq.JObject()

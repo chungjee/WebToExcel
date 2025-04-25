@@ -30,11 +30,12 @@ Partial Class frmAnalysiserSetup
         Me.btnBrowseFile = New System.Windows.Forms.Button()
         Me.btnUploadFile = New System.Windows.Forms.Button()
         Me.txtFilterUrl = New System.Windows.Forms.TextBox()
-        Me.btnAddFilter = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.trvResponseFilter = New System.Windows.Forms.TreeView()
         Me.txtContentEdit = New System.Windows.Forms.TextBox()
+        Me.btnAddFilter = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -47,34 +48,35 @@ Partial Class frmAnalysiserSetup
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.Button1)
+        Me.Panel1.Controls.Add(Me.btnAddFilter)
         Me.Panel1.Controls.Add(Me.txtFileName)
         Me.Panel1.Controls.Add(Me.btnBrowseFile)
         Me.Panel1.Controls.Add(Me.btnUploadFile)
         Me.Panel1.Controls.Add(Me.txtFilterUrl)
-        Me.Panel1.Controls.Add(Me.btnAddFilter)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(5, 516)
+        Me.Panel1.Location = New System.Drawing.Point(5, 522)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(984, 36)
+        Me.Panel1.Size = New System.Drawing.Size(984, 30)
         Me.Panel1.TabIndex = 3
         '
         'txtFileName
         '
         Me.txtFileName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtFileName.Dock = System.Windows.Forms.DockStyle.Right
-        Me.txtFileName.Location = New System.Drawing.Point(407, 0)
+        Me.txtFileName.Location = New System.Drawing.Point(595, 0)
         Me.txtFileName.Multiline = True
         Me.txtFileName.Name = "txtFileName"
         Me.txtFileName.ReadOnly = True
-        Me.txtFileName.Size = New System.Drawing.Size(377, 36)
+        Me.txtFileName.Size = New System.Drawing.Size(209, 30)
         Me.txtFileName.TabIndex = 7
         '
         'btnBrowseFile
         '
         Me.btnBrowseFile.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnBrowseFile.Location = New System.Drawing.Point(784, 0)
+        Me.btnBrowseFile.Location = New System.Drawing.Point(804, 0)
         Me.btnBrowseFile.Name = "btnBrowseFile"
-        Me.btnBrowseFile.Size = New System.Drawing.Size(100, 36)
+        Me.btnBrowseFile.Size = New System.Drawing.Size(90, 30)
         Me.btnBrowseFile.TabIndex = 6
         Me.btnBrowseFile.Text = "浏览文件"
         Me.btnBrowseFile.UseVisualStyleBackColor = True
@@ -82,9 +84,9 @@ Partial Class frmAnalysiserSetup
         'btnUploadFile
         '
         Me.btnUploadFile.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnUploadFile.Location = New System.Drawing.Point(884, 0)
+        Me.btnUploadFile.Location = New System.Drawing.Point(894, 0)
         Me.btnUploadFile.Name = "btnUploadFile"
-        Me.btnUploadFile.Size = New System.Drawing.Size(100, 36)
+        Me.btnUploadFile.Size = New System.Drawing.Size(90, 30)
         Me.btnUploadFile.TabIndex = 5
         Me.btnUploadFile.Text = "上传文件"
         Me.btnUploadFile.UseVisualStyleBackColor = True
@@ -94,21 +96,11 @@ Partial Class frmAnalysiserSetup
         Me.txtFilterUrl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtFilterUrl.Dock = System.Windows.Forms.DockStyle.Left
         Me.txtFilterUrl.Font = New System.Drawing.Font("宋体", 10.0!)
-        Me.txtFilterUrl.Location = New System.Drawing.Point(100, 0)
+        Me.txtFilterUrl.Location = New System.Drawing.Point(0, 0)
         Me.txtFilterUrl.Multiline = True
         Me.txtFilterUrl.Name = "txtFilterUrl"
-        Me.txtFilterUrl.Size = New System.Drawing.Size(298, 36)
+        Me.txtFilterUrl.Size = New System.Drawing.Size(243, 30)
         Me.txtFilterUrl.TabIndex = 3
-        '
-        'btnAddFilter
-        '
-        Me.btnAddFilter.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnAddFilter.Location = New System.Drawing.Point(0, 0)
-        Me.btnAddFilter.Name = "btnAddFilter"
-        Me.btnAddFilter.Size = New System.Drawing.Size(100, 36)
-        Me.btnAddFilter.TabIndex = 2
-        Me.btnAddFilter.Text = "添加过滤器"
-        Me.btnAddFilter.UseVisualStyleBackColor = True
         '
         'Panel2
         '
@@ -131,8 +123,8 @@ Partial Class frmAnalysiserSetup
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.txtContentEdit)
-        Me.SplitContainer1.Size = New System.Drawing.Size(984, 490)
-        Me.SplitContainer1.SplitterDistance = 328
+        Me.SplitContainer1.Size = New System.Drawing.Size(984, 496)
+        Me.SplitContainer1.SplitterDistance = 332
         Me.SplitContainer1.TabIndex = 9
         '
         'trvResponseFilter
@@ -148,7 +140,7 @@ Partial Class frmAnalysiserSetup
         TreeNode1.Name = "节点0"
         TreeNode1.Text = "网络响应过滤器"
         Me.trvResponseFilter.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode1})
-        Me.trvResponseFilter.Size = New System.Drawing.Size(328, 490)
+        Me.trvResponseFilter.Size = New System.Drawing.Size(332, 496)
         Me.trvResponseFilter.TabIndex = 7
         '
         'txtContentEdit
@@ -159,8 +151,28 @@ Partial Class frmAnalysiserSetup
         Me.txtContentEdit.Multiline = True
         Me.txtContentEdit.Name = "txtContentEdit"
         Me.txtContentEdit.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtContentEdit.Size = New System.Drawing.Size(652, 490)
+        Me.txtContentEdit.Size = New System.Drawing.Size(648, 496)
         Me.txtContentEdit.TabIndex = 8
+        '
+        'btnAddFilter
+        '
+        Me.btnAddFilter.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnAddFilter.Location = New System.Drawing.Point(243, 0)
+        Me.btnAddFilter.Name = "btnAddFilter"
+        Me.btnAddFilter.Size = New System.Drawing.Size(90, 30)
+        Me.btnAddFilter.TabIndex = 8
+        Me.btnAddFilter.Text = "添加过滤器"
+        Me.btnAddFilter.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Button1.Location = New System.Drawing.Point(333, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 30)
+        Me.Button1.TabIndex = 9
+        Me.Button1.Text = "字体设置"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'frmAnalysiserSetup
         '
@@ -184,16 +196,18 @@ Partial Class frmAnalysiserSetup
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         Me.ResumeLayout(False)
+
     End Sub
     Friend WithEvents OpenFileDialog1 As Windows.Forms.OpenFileDialog
     Friend WithEvents txtFileName As Windows.Forms.TextBox
     Friend WithEvents btnBrowseFile As Windows.Forms.Button
     Friend WithEvents btnUploadFile As Windows.Forms.Button
     Friend WithEvents txtFilterUrl As Windows.Forms.TextBox
-    Friend WithEvents btnAddFilter As Windows.Forms.Button
     Friend WithEvents Panel1 As Windows.Forms.Panel
     Friend WithEvents Panel2 As Windows.Forms.Panel
     Friend WithEvents SplitContainer1 As Windows.Forms.SplitContainer
     Friend WithEvents trvResponseFilter As Windows.Forms.TreeView
     Friend WithEvents txtContentEdit As Windows.Forms.TextBox
+    Friend WithEvents btnAddFilter As Windows.Forms.Button
+    Friend WithEvents Button1 As Windows.Forms.Button
 End Class

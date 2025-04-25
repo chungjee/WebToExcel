@@ -16,8 +16,8 @@ Public Class WebviewTaskPaneControl
     Public dicBottomButtonScript As Dictionary(Of String, Dictionary(Of String, String))
     Public isHaveIframe As Boolean = False
     Private Sub MyTaskPaneControl_Load(sender As Object, e As EventArgs) Handles Me.Load
-        SetBottomButtonScript()
-        MdlLoad.initializeThisAddinWebview2Async()
+        ReadBottomButtonScriptToDictionary() '读取底部按钮脚本列表到字典
+        MdlLoad.initializeThisAddinWebview2Async() '初始化WebView2控件，绑定WebView2的事件到webviewEvent模块的相关函数中，加载响应过滤器脚本
     End Sub
 
     Private Sub wvCoreWevview2_SourceChanged(sender As Object, e As CoreWebView2SourceChangedEventArgs) Handles wvCoreWevview2.SourceChanged
@@ -45,7 +45,7 @@ Public Class WebviewTaskPaneControl
             End Try
         End If
 
-    End Sub
+    End Sub '地址文本框按下回车键事件处理程序
     Private Sub btnNavigate_Click(sender As Object, e As EventArgs) Handles btnNavigate.Click
         If Me.txbURL.Text <> "" Then
             Try
@@ -54,21 +54,20 @@ Public Class WebviewTaskPaneControl
                 Debug.WriteLine(ex.InnerException.Message)
             End Try
         End If
-    End Sub
+    End Sub '导航按钮点击事件处理程序
 
 
     Private Async Sub btnForward_Click(sender As Object, e As EventArgs) Handles btnForward.Click
         If Me.tooltxtForward.Text <> "" Then
             Try
                 Dim strResult As CoreWebView2ExecuteScriptResult = Await Me.wvCoreWevview2.ExecuteScriptWithResultAsync(Me.tooltxtForward.Text)
-                If strResult.ResultAsJson = "true" Then xlApp.Run("frmShow")
+                If strResult.ResultAsJson = "true" Then Debug.WriteLine("向前执行成功！")
             Catch ex As Exception
                 Debug.WriteLine(ex.Message)
-                xlApp.Run("frmHidden")
             End Try
         End If
 
-    End Sub
+    End Sub '向前按钮点击事件处理程序
     Private Sub lbCloseLoading_Click(sender As Object, e As EventArgs) Handles lbCloseLoading.Click
         Try
             xlApp.Run("frmHidden")
@@ -77,18 +76,17 @@ Public Class WebviewTaskPaneControl
         End Try
         Me.conMenuAllSetup.Enabled = False
         Me.conMenuAllSetup.Enabled = True
-    End Sub
+    End Sub '关闭加载窗体按钮点击事件处理程序
     Private Async Sub btnBackward_Click(sender As Object, e As EventArgs) Handles btnBackward.Click
         If Me.tooltxtBackward.Text <> "" Then
             Try
                 Dim strResult As CoreWebView2ExecuteScriptResult = Await Me.wvCoreWevview2.ExecuteScriptWithResultAsync(Me.tooltxtBackward.Text)
-                If strResult.ResultAsJson = "true" Then xlApp.Run("frmShow")
+                If strResult.ResultAsJson = "true" Then Debug.WriteLine("向后执行成功！")
             Catch ex As Exception
                 Debug.WriteLine(ex.Message)
-                xlApp.Run("frmHidden")
             End Try
         End If
-    End Sub
+    End Sub '向后按钮点击事件处理程序
 
 
     Private Sub btnUp_Click(sender As Object, e As EventArgs) Handles btnUp.Click
@@ -160,8 +158,7 @@ Public Class WebviewTaskPaneControl
 
     End Sub
 
-
-    Sub SetBottomButtonScript()
+    Sub ReadBottomButtonScriptToDictionary()
         If dicBottomButtonScript Is Nothing Then
             dicBottomButtonScript = New Dictionary(Of String, Dictionary(Of String, String))
             Dim jsonBottomButtonScriptList As Newtonsoft.Json.Linq.JObject

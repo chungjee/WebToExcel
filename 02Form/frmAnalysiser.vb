@@ -36,7 +36,7 @@ Public Class frmAnalysiserSetup
     End Sub
 
 
-    Private Sub btnAddFilter_Click(sender As Object, e As EventArgs) Handles btnAddFilter.Click
+    Private Sub btnAddFilter_Click(sender As Object, e As EventArgs)
         Try
             Dim objFilterUrl As New System.Uri(Me.txtFilterUrl.Text)
             Dim strFilterUrl As String = objFilterUrl.AbsolutePath & objFilterUrl.Query
@@ -94,7 +94,7 @@ Public Class frmAnalysiserSetup
                     objVBModuleComponentLinesCount = objVBModuleComponent.CodeModule.CountOfLines
                     Me.txtContentEdit.Text = objVBModuleComponent.CodeModule.Lines(1, objVBModuleComponentLinesCount)
                 Else
-                    objVBModuleComponent.CodeModule.AddFromString("sub " & strVBAFunctionName & "()" & Chr(13) & "end sub")
+                    objVBModuleComponent.CodeModule.AddFromString("Sub " & strVBAFunctionName & "(strFileName As String)" & Chr(13) & "End Sub")
                 End If
             Else
                 Me.txtContentEdit.Text = objVBModuleComponent.CodeModule.Lines(1, objVBModuleComponentLinesCount)

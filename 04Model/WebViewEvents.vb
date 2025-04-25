@@ -50,7 +50,7 @@ Module WebViewEvents
         ElseIf UCase(e.Request.Method) = "GET" Then
             If InStr(e.Request.Uri, "xls") <= 0 Then Return
         End If
-    End Sub '网络资源请求事件执行程序
+    End Sub 'webview2控件网络资源请求事件执行程序
     Public Async Sub EventWebResourceResponseReceived(sender As Object, e As CoreWebView2WebResourceResponseReceivedEventArgs)
         If Globals.ThisAddIn.tpConstomWebVieTaskPanel.MenuItemResponseSwitch.Checked = False Then Return
         Dim request As CoreWebView2WebResourceRequest = e.Request : Dim strRequestUrl As String = request.Uri
@@ -66,7 +66,10 @@ Module WebViewEvents
                 Debug.WriteLine(Now() & "：" & key.Item("url").Value(Of String) & Chr(13))
                 If content <> "" And content.Length > 10 Then
                     If runVBAFunction(uriRequest, content) = True Then
-                        Globals.ThisAddIn.tpConstomWebVieTaskPanel.ExecuteJavaScriptAsync()
+                        With Globals.ThisAddIn.tpConstomWebVieTaskPanel
+                            .ExecuteJavaScriptAsync()
+                            .conMenuAllSetup.Enabled = False : .conMenuAllSetup.Enabled = True
+                        End With
                     Else
                         If MsgBox("数据解析失败！是否让大模型进行解析输出？", MsgBoxStyle.YesNo, "请选择是否大模型解析输出") = MsgBoxResult.Yes Then
                             DeepSeek.jsonToVBA(content)
@@ -77,7 +80,7 @@ Module WebViewEvents
                 Return
             End If
         Next key
-    End Sub '网络资源接收事件执行程序
+    End Sub 'webview2控件网络资源响应事件执行程序
     Public Sub EventDownloadStarting(sender As Object, e As CoreWebView2DownloadStartingEventArgs)
         MdlLoad.strFileFullName = e.ResultFilePath
         'MsgBox(e.ResultFilePath)
@@ -98,30 +101,34 @@ Module WebViewEvents
                 uriRequestFile = New Uri(Replace(uriRequestFile.AbsoluteUri, uriRequestFile.Query, ""))
                 uriRequestFile = New Uri(uriRequestFile.AbsoluteUri.Substring(0, uriRequestFile.AbsoluteUri.LastIndexOf("/") + 1) & Path.GetFileNameWithoutExtension(strFileName))
                 MdlLoad.runVBAFunction(uriRequestFile, strFileName)
+                With Globals.ThisAddIn.tpConstomWebVieTaskPanel
+                    .conMenuAllSetup.Enabled = False : .conMenuAllSetup.Enabled = True
+                End With
                 e.Cancel = True
             End If
             xlApp.Run("frmHidden")
         End If
-    End Sub '文件下载事件执行程序
+    End Sub 'webview2控件下载事件执行程序
+
     Public Sub EventWebMessageReceived(sender As Object, e As CoreWebView2WebMessageReceivedEventArgs)
         Dim base64Data As String = e.WebMessageAsJson
         If base64Data.StartsWith("""data:text/plain;base64,") Then
             SaveBase64ToFile(base64Data, MdlLoad.strFileFullName)
         End If
-    End Sub
-
+    End Sub 'WebView2控件消息接收事件执行程序
     Public Sub EventNavigationStarting(sender As Object, e As CoreWebView2NavigationStartingEventArgs)
         'sender.AddScriptToExecuteOnDocumentCreatedAsync("<script>const iframe = document.getElementsByTagNace('iframe')[0];iframe.addEventListener('load', () => {window.chrome.webview.postMessage('注入脚本成功')});</script>")
-    End Sub
+    End Sub 'webview2控件导航开始事件执行程序
     Public Sub EventNavigationCompleted(sender As Object, e As CoreWebView2NavigationCompletedEventArgs)
         Debug.WriteLine("NavigationCompleted:" & sender.source)
-    End Sub
+    End Sub 'webview2控件导航完成事件执行程序
+
     Public Sub EventDOMContentLoaded(sender As Object, e As CoreWebView2DOMContentLoadedEventArgs)
         Debug.WriteLine("DOMContentLoaded:" & e.NavigationId)
-    End Sub
+    End Sub 'webview2控件DOM加载完成事件执行程序
     Public Sub EventFrameNavigationStarting(sender As Object, e As CoreWebView2NavigationStartingEventArgs)
         Debug.WriteLine("FrameNavigationStarting:" & e.NavigationId.ToString())
-    End Sub
+    End Sub 'webview2控件框架导航开始事件执行程序
     Public Async Sub EventFrameNavigationCompleted(sender As Object, e As CoreWebView2NavigationCompletedEventArgs)
         If e.HttpStatusCode <> 200 Then Return
         If e.IsSuccess = False Then Return
@@ -146,7 +153,7 @@ Module WebViewEvents
                 .tooltxtForward.Text = .dicBottomButtonScript(strCurrentBottomButtonScript)("tooltxtForward")
             End If
         End With
-    End Sub
+    End Sub 'webview2控件框架导航完成事件执行程序
 
     Public Sub EventNewWindowRequested(sender As Object, e As CoreWebView2NewWindowRequestedEventArgs)
         Debug.WriteLine("NewWindowRequested:" & e.Uri)
@@ -160,10 +167,15 @@ Module WebViewEvents
                 uriRequestFile = New Uri(Replace(uriRequestFile.AbsoluteUri, uriRequestFile.Query, ""))
                 uriRequestFile = New Uri(uriRequestFile.AbsoluteUri.Substring(0, uriRequestFile.AbsoluteUri.LastIndexOf("/") + 1) & Path.GetFileNameWithoutExtension(strFileName))
                 MdlLoad.runVBAFunction(uriRequestFile, strFileName)
+                With Globals.ThisAddIn.tpConstomWebVieTaskPanel
+                    .conMenuAllSetup.Enabled = False : .conMenuAllSetup.Enabled = True
+                End With
             End If
             xlApp.Run("frmHidden")
+        Else
+            CType(sender, Microsoft.Web.WebView2.Core.CoreWebView2).Navigate(e.Uri)
         End If
-    End Sub
+    End Sub 'webview2控件新窗口请求事件执行程序
 
     Async Function downloadFileToExcel(strUrl As String) As Threading.Tasks.Task(Of String)
         Dim uriFileName As New Uri(strUrl)
@@ -187,7 +199,7 @@ Module WebViewEvents
             End Try
         End Using
         Return ""
-    End Function
+    End Function '根据URL地址下载文件到临时目录，并将文件名返回
 
     Public Async Sub HandleBlobUrl(blobUrl As String)
         Dim script As String = $"
