@@ -268,5 +268,17 @@ Namespace My
                 Me("strLoadFormFunction") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("frmLoading_ChungJee")>  _
+        Public Property strLoadingFormName() As String
+            Get
+                Return CType(Me("strLoadingFormName"),String)
+            End Get
+            Set
+                Me("strLoadingFormName") = value
+            End Set
+        End Property
     End Class
 End Namespace

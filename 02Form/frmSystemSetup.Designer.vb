@@ -23,6 +23,7 @@ Partial Class frmSystemSetup
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim StrNasSidLabel As System.Windows.Forms.Label
         Dim StrNasUserNameLabel As System.Windows.Forms.Label
         Dim StrNasHostNameLabel As System.Windows.Forms.Label
@@ -34,13 +35,13 @@ Partial Class frmSystemSetup
         Dim JsonUrlListLabel As System.Windows.Forms.Label
         Dim JsonBottomButtonScriptLabel As System.Windows.Forms.Label
         Dim StrNoVBAFunctionLabel As System.Windows.Forms.Label
+        Dim StrLoadingFormNameLabel As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSystemSetup))
         Me.splBottom = New System.Windows.Forms.SplitContainer()
         Me.btnFontSize = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.palLeft = New System.Windows.Forms.Panel()
-        Me.StrNoVBAFunctionTextBox = New System.Windows.Forms.TextBox()
         Me.btnClear = New System.Windows.Forms.Button()
         Me.StrNasSidTextBox = New System.Windows.Forms.TextBox()
         Me.StrNasUserNameTextBox = New System.Windows.Forms.TextBox()
@@ -54,6 +55,9 @@ Partial Class frmSystemSetup
         Me.JsonUrlListTextBox = New System.Windows.Forms.TextBox()
         Me.JsonBottomButtonScriptTextBox = New System.Windows.Forms.TextBox()
         Me.fntDialogSystemSetup = New System.Windows.Forms.FontDialog()
+        Me.StrNoVBAFunctionTextBox = New System.Windows.Forms.TextBox()
+        Me.ChungJeeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.StrLoadingFormNameTextBox = New System.Windows.Forms.TextBox()
         StrNasSidLabel = New System.Windows.Forms.Label()
         StrNasUserNameLabel = New System.Windows.Forms.Label()
         StrNasHostNameLabel = New System.Windows.Forms.Label()
@@ -65,6 +69,7 @@ Partial Class frmSystemSetup
         JsonUrlListLabel = New System.Windows.Forms.Label()
         JsonBottomButtonScriptLabel = New System.Windows.Forms.Label()
         StrNoVBAFunctionLabel = New System.Windows.Forms.Label()
+        StrLoadingFormNameLabel = New System.Windows.Forms.Label()
         CType(Me.splBottom, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.splBottom.Panel2.SuspendLayout()
         Me.splBottom.SuspendLayout()
@@ -73,6 +78,7 @@ Partial Class frmSystemSetup
         Me.splFill.Panel1.SuspendLayout()
         Me.splFill.Panel2.SuspendLayout()
         Me.splFill.SuspendLayout()
+        CType(Me.ChungJeeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StrNasSidLabel
@@ -118,7 +124,7 @@ Partial Class frmSystemSetup
         Con_NAS_HOME_FOLDERNAMELabel.Name = "Con_NAS_HOME_FOLDERNAMELabel"
         Con_NAS_HOME_FOLDERNAMELabel.Size = New System.Drawing.Size(135, 15)
         Con_NAS_HOME_FOLDERNAMELabel.TabIndex = 42
-        Con_NAS_HOME_FOLDERNAMELabel.Text = "网络存储—文件夹:"
+        Con_NAS_HOME_FOLDERNAMELabel.Text = "网络存储主文件夹:"
         '
         'Con_END_DATELabel
         '
@@ -151,35 +157,30 @@ Partial Class frmSystemSetup
         '
         JsonUrlListLabel.BackColor = System.Drawing.SystemColors.ScrollBar
         JsonUrlListLabel.Dock = System.Windows.Forms.DockStyle.Top
+        JsonUrlListLabel.Font = New System.Drawing.Font("微软雅黑", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         JsonUrlListLabel.Location = New System.Drawing.Point(0, 0)
         JsonUrlListLabel.Name = "JsonUrlListLabel"
-        JsonUrlListLabel.Size = New System.Drawing.Size(463, 15)
+        JsonUrlListLabel.Size = New System.Drawing.Size(469, 25)
         JsonUrlListLabel.TabIndex = 24
         JsonUrlListLabel.Text = "网络响应接受过滤器:"
+        JsonUrlListLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'JsonBottomButtonScriptLabel
         '
         JsonBottomButtonScriptLabel.BackColor = System.Drawing.SystemColors.ScrollBar
         JsonBottomButtonScriptLabel.Dock = System.Windows.Forms.DockStyle.Top
+        JsonBottomButtonScriptLabel.Font = New System.Drawing.Font("微软雅黑", 10.0!)
         JsonBottomButtonScriptLabel.Location = New System.Drawing.Point(0, 0)
         JsonBottomButtonScriptLabel.Name = "JsonBottomButtonScriptLabel"
-        JsonBottomButtonScriptLabel.Size = New System.Drawing.Size(463, 15)
+        JsonBottomButtonScriptLabel.Size = New System.Drawing.Size(469, 25)
         JsonBottomButtonScriptLabel.TabIndex = 55
         JsonBottomButtonScriptLabel.Text = "底部按钮脚本过滤器:"
-        '
-        'StrNoVBAFunctionLabel
-        '
-        StrNoVBAFunctionLabel.AutoSize = True
-        StrNoVBAFunctionLabel.Location = New System.Drawing.Point(7, 318)
-        StrNoVBAFunctionLabel.Name = "StrNoVBAFunctionLabel"
-        StrNoVBAFunctionLabel.Size = New System.Drawing.Size(142, 15)
-        StrNoVBAFunctionLabel.TabIndex = 52
-        StrNoVBAFunctionLabel.Text = "无个性化格式函数："
+        JsonBottomButtonScriptLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'splBottom
         '
         Me.splBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.splBottom.Location = New System.Drawing.Point(0, 464)
+        Me.splBottom.Location = New System.Drawing.Point(0, 427)
         Me.splBottom.Margin = New System.Windows.Forms.Padding(0)
         Me.splBottom.Name = "splBottom"
         '
@@ -189,8 +190,8 @@ Partial Class frmSystemSetup
         Me.splBottom.Panel2.Controls.Add(Me.btnCancel)
         Me.splBottom.Panel2.Controls.Add(Me.btnOK)
         Me.splBottom.Panel2.Padding = New System.Windows.Forms.Padding(0, 0, 20, 3)
-        Me.splBottom.Size = New System.Drawing.Size(838, 32)
-        Me.splBottom.SplitterDistance = 498
+        Me.splBottom.Size = New System.Drawing.Size(863, 32)
+        Me.splBottom.SplitterDistance = 383
         Me.splBottom.TabIndex = 24
         '
         'btnFontSize
@@ -206,7 +207,7 @@ Partial Class frmSystemSetup
         'btnCancel
         '
         Me.btnCancel.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnCancel.Location = New System.Drawing.Point(176, 0)
+        Me.btnCancel.Location = New System.Drawing.Point(316, 0)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(70, 29)
         Me.btnCancel.TabIndex = 24
@@ -216,7 +217,7 @@ Partial Class frmSystemSetup
         'btnOK
         '
         Me.btnOK.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnOK.Location = New System.Drawing.Point(246, 0)
+        Me.btnOK.Location = New System.Drawing.Point(386, 0)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(70, 29)
         Me.btnOK.TabIndex = 23
@@ -225,8 +226,8 @@ Partial Class frmSystemSetup
         '
         'palLeft
         '
-        Me.palLeft.Controls.Add(StrNoVBAFunctionLabel)
-        Me.palLeft.Controls.Add(Me.StrNoVBAFunctionTextBox)
+        Me.palLeft.Controls.Add(StrLoadingFormNameLabel)
+        Me.palLeft.Controls.Add(Me.StrLoadingFormNameTextBox)
         Me.palLeft.Controls.Add(Me.btnClear)
         Me.palLeft.Controls.Add(StrNasSidLabel)
         Me.palLeft.Controls.Add(Me.StrNasSidTextBox)
@@ -247,23 +248,15 @@ Partial Class frmSystemSetup
         Me.palLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.palLeft.Location = New System.Drawing.Point(0, 0)
         Me.palLeft.Name = "palLeft"
-        Me.palLeft.Size = New System.Drawing.Size(375, 464)
+        Me.palLeft.Size = New System.Drawing.Size(394, 427)
         Me.palLeft.TabIndex = 25
-        '
-        'StrNoVBAFunctionTextBox
-        '
-        Me.StrNoVBAFunctionTextBox.Location = New System.Drawing.Point(148, 309)
-        Me.StrNoVBAFunctionTextBox.Multiline = True
-        Me.StrNoVBAFunctionTextBox.Name = "StrNoVBAFunctionTextBox"
-        Me.StrNoVBAFunctionTextBox.Size = New System.Drawing.Size(200, 152)
-        Me.StrNoVBAFunctionTextBox.TabIndex = 53
         '
         'btnClear
         '
         Me.btnClear.Font = New System.Drawing.Font("宋体", 9.0!)
-        Me.btnClear.Location = New System.Drawing.Point(280, 280)
+        Me.btnClear.Location = New System.Drawing.Point(280, 278)
         Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(75, 25)
+        Me.btnClear.Size = New System.Drawing.Size(68, 26)
         Me.btnClear.TabIndex = 52
         Me.btnClear.Text = "清空"
         Me.btnClear.UseVisualStyleBackColor = True
@@ -328,7 +321,7 @@ Partial Class frmSystemSetup
         'splFill
         '
         Me.splFill.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.splFill.Location = New System.Drawing.Point(375, 0)
+        Me.splFill.Location = New System.Drawing.Point(394, 0)
         Me.splFill.Name = "splFill"
         Me.splFill.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -339,20 +332,23 @@ Partial Class frmSystemSetup
         '
         'splFill.Panel2
         '
+        Me.splFill.Panel2.Controls.Add(Me.StrNoVBAFunctionTextBox)
+        Me.splFill.Panel2.Controls.Add(StrNoVBAFunctionLabel)
         Me.splFill.Panel2.Controls.Add(Me.JsonBottomButtonScriptTextBox)
         Me.splFill.Panel2.Controls.Add(JsonBottomButtonScriptLabel)
-        Me.splFill.Size = New System.Drawing.Size(463, 464)
-        Me.splFill.SplitterDistance = 124
+        Me.splFill.Size = New System.Drawing.Size(469, 427)
+        Me.splFill.SplitterDistance = 114
         Me.splFill.TabIndex = 28
         '
         'JsonUrlListTextBox
         '
         Me.JsonUrlListTextBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.JsonUrlListTextBox.Location = New System.Drawing.Point(0, 15)
+        Me.JsonUrlListTextBox.Font = New System.Drawing.Font("宋体", 10.0!)
+        Me.JsonUrlListTextBox.Location = New System.Drawing.Point(0, 25)
         Me.JsonUrlListTextBox.Multiline = True
         Me.JsonUrlListTextBox.Name = "JsonUrlListTextBox"
         Me.JsonUrlListTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.JsonUrlListTextBox.Size = New System.Drawing.Size(463, 109)
+        Me.JsonUrlListTextBox.Size = New System.Drawing.Size(469, 89)
         Me.JsonUrlListTextBox.TabIndex = 26
         '
         'JsonBottomButtonScriptTextBox
@@ -360,12 +356,13 @@ Partial Class frmSystemSetup
         Me.JsonBottomButtonScriptTextBox.AcceptsTab = True
         Me.JsonBottomButtonScriptTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.JsonBottomButtonScriptTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList
-        Me.JsonBottomButtonScriptTextBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.JsonBottomButtonScriptTextBox.Location = New System.Drawing.Point(0, 15)
+        Me.JsonBottomButtonScriptTextBox.Dock = System.Windows.Forms.DockStyle.Top
+        Me.JsonBottomButtonScriptTextBox.Font = New System.Drawing.Font("宋体", 10.0!)
+        Me.JsonBottomButtonScriptTextBox.Location = New System.Drawing.Point(0, 25)
         Me.JsonBottomButtonScriptTextBox.Multiline = True
         Me.JsonBottomButtonScriptTextBox.Name = "JsonBottomButtonScriptTextBox"
         Me.JsonBottomButtonScriptTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.JsonBottomButtonScriptTextBox.Size = New System.Drawing.Size(463, 321)
+        Me.JsonBottomButtonScriptTextBox.Size = New System.Drawing.Size(469, 152)
         Me.JsonBottomButtonScriptTextBox.TabIndex = 57
         '
         'fntDialogSystemSetup
@@ -373,11 +370,52 @@ Partial Class frmSystemSetup
         Me.fntDialogSystemSetup.ShowApply = True
         Me.fntDialogSystemSetup.ShowColor = True
         '
+        'StrNoVBAFunctionLabel
+        '
+        StrNoVBAFunctionLabel.Dock = System.Windows.Forms.DockStyle.Top
+        StrNoVBAFunctionLabel.Font = New System.Drawing.Font("微软雅黑", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        StrNoVBAFunctionLabel.Location = New System.Drawing.Point(0, 177)
+        StrNoVBAFunctionLabel.Name = "StrNoVBAFunctionLabel"
+        StrNoVBAFunctionLabel.Size = New System.Drawing.Size(469, 25)
+        StrNoVBAFunctionLabel.TabIndex = 59
+        StrNoVBAFunctionLabel.Text = "通用数据格式函数:"
+        StrNoVBAFunctionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'StrNoVBAFunctionTextBox
+        '
+        Me.StrNoVBAFunctionTextBox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.StrNoVBAFunctionTextBox.Location = New System.Drawing.Point(0, 202)
+        Me.StrNoVBAFunctionTextBox.Multiline = True
+        Me.StrNoVBAFunctionTextBox.Name = "StrNoVBAFunctionTextBox"
+        Me.StrNoVBAFunctionTextBox.Size = New System.Drawing.Size(469, 107)
+        Me.StrNoVBAFunctionTextBox.TabIndex = 60
+        '
+        'ChungJeeBindingSource
+        '
+        Me.ChungJeeBindingSource.DataSource = GetType(Webview2ToExcel.My.ChungJee)
+        '
+        'StrLoadingFormNameLabel
+        '
+        StrLoadingFormNameLabel.AutoSize = True
+        StrLoadingFormNameLabel.Location = New System.Drawing.Point(7, 320)
+        StrLoadingFormNameLabel.Name = "StrLoadingFormNameLabel"
+        StrLoadingFormNameLabel.Size = New System.Drawing.Size(120, 15)
+        StrLoadingFormNameLabel.TabIndex = 52
+        StrLoadingFormNameLabel.Text = "加载窗体的名称:"
+        '
+        'StrLoadingFormNameTextBox
+        '
+        Me.StrLoadingFormNameTextBox.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ChungJeeBindingSource, "strLoadingFormName", True))
+        Me.StrLoadingFormNameTextBox.Location = New System.Drawing.Point(148, 317)
+        Me.StrLoadingFormNameTextBox.Name = "StrLoadingFormNameTextBox"
+        Me.StrLoadingFormNameTextBox.Size = New System.Drawing.Size(200, 25)
+        Me.StrLoadingFormNameTextBox.TabIndex = 53
+        '
         'frmSystemSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(838, 496)
+        Me.ClientSize = New System.Drawing.Size(863, 459)
         Me.Controls.Add(Me.splFill)
         Me.Controls.Add(Me.palLeft)
         Me.Controls.Add(Me.splBottom)
@@ -396,6 +434,7 @@ Partial Class frmSystemSetup
         Me.splFill.Panel2.PerformLayout()
         CType(Me.splFill, System.ComponentModel.ISupportInitialize).EndInit()
         Me.splFill.ResumeLayout(False)
+        CType(Me.ChungJeeBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -418,4 +457,6 @@ Partial Class frmSystemSetup
     Friend WithEvents btnFontSize As Windows.Forms.Button
     Friend WithEvents fntDialogSystemSetup As Windows.Forms.FontDialog
     Friend WithEvents StrNoVBAFunctionTextBox As Windows.Forms.TextBox
+    Friend WithEvents StrLoadingFormNameTextBox As Windows.Forms.TextBox
+    Friend WithEvents ChungJeeBindingSource As Windows.Forms.BindingSource
 End Class

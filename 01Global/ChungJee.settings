@@ -73,5 +73,8 @@ public sub frmHidden()
 If frmLoading_ChungJee.Visible = True Then frmLoading_ChungJee.Hide
 end sub</Value>
     </Setting>
+    <Setting Name="strLoadingFormName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">frmLoading_ChungJee</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

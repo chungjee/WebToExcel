@@ -17,6 +17,7 @@ Public Class frmSystemSetup
             Me.JsonUrlListTextBox.Text = Chr(13) & .jsonUrlList
             Me.JsonBottomButtonScriptTextBox.Text = Chr(13) & .jsonBottomButtonScript
             Me.StrNoVBAFunctionTextBox.Text = .strNoVBAFunction
+            Me.StrLoadingFormNameTextBox.Text = .strLoadingFormName
         End With
     End Sub
 
@@ -42,6 +43,7 @@ Public Class frmSystemSetup
             .jsonUrlList = Me.JsonUrlListTextBox.Text.Replace(" ", "").Replace(Chr(13), "")
             .jsonBottomButtonScript = Me.JsonBottomButtonScriptTextBox.Text.Replace("  ", "").Replace(Chr(13) & " ", "")
             .strNoVBAFunction = Me.StrNoVBAFunctionTextBox.Text
+            .strLoadingFormName = Me.StrLoadingFormNameTextBox.Text
             .Save()
             Try
                 Dim objJsonUrlListTemp As JObject = Newtonsoft.Json.Linq.JObject.Parse(My.ChungJee.Default.jsonUrlList)
@@ -80,5 +82,13 @@ Public Class frmSystemSetup
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
+    End Sub
+
+    Private Sub StrNoVBAFunctionTextBox_TextChanged(sender As Object, e As EventArgs) Handles StrNoVBAFunctionTextBox.TextChanged
+        StrNoVBAFunctionTextBox.Modified = True
+    End Sub
+
+    Private Sub palLeft_Paint(sender As Object, e As Windows.Forms.PaintEventArgs) Handles palLeft.Paint
+
     End Sub
 End Class

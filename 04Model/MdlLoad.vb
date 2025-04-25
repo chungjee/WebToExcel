@@ -17,7 +17,7 @@ Module MdlLoad
     Public Sub initializeLoadingForm()
         Dim Wb As Microsoft.Office.Interop.Excel.Workbook = xlApp.ActiveWorkbook
         'xlApp.AutomationSecurity = Microsoft.Office.Core.MsoAutomationSecurity.msoAutomationSecurityLow
-        Dim strFormName As String = "frmLoading_ChungJee"
+        Dim strFormName As String = My.ChungJee.Default.strLoadingFormName
         Dim objVBFormComponent As Microsoft.Vbe.Interop.VBComponent = Nothing
         Dim objVBModuleComponent As Microsoft.Vbe.Interop.VBComponent = Nothing
         Try
