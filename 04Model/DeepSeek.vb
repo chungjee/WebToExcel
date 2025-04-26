@@ -85,7 +85,6 @@ Module DeepSeek
                                 "对你的返回结果要求如下：因为我需要将你返回的内容直接写入vba的工程中，所以你需要只给出vba代码，不要有其他任何无关内容，也不要有任何注释,包括返回结果的开头和结尾也不要使用注释，以保证返回代码能够直接运行。"
 
         Dim vbaCode As String = DeepSeek.callDeepSeek(prompt, content, "你是一个Json格式内容分析小能手").GetAwaiter().GetResult()
-        ' 将大模型返回的VBA代码写入当前工作表的VBA工程中
 
         If Not String.IsNullOrEmpty(vbaCode) Then
             Dim xlApp As Excel.Application = Globals.ThisAddIn.Application

@@ -18,7 +18,7 @@ Public Class WebviewTaskPaneControl
     Private Sub MyTaskPaneControl_Load(sender As Object, e As EventArgs) Handles Me.Load
         ReadBottomButtonScriptToDictionary() '读取底部按钮脚本列表到字典
         MdlLoad.initializeThisAddinWebview2Async() '初始化WebView2控件，绑定WebView2的事件到webviewEvent模块的相关函数中，加载响应过滤器脚本
-    End Sub
+    End Sub '自定义控件加载事件处理程序
 
     Private Sub wvCoreWevview2_SourceChanged(sender As Object, e As CoreWebView2SourceChangedEventArgs) Handles wvCoreWevview2.SourceChanged
         If e.IsNewDocument = False Then
@@ -155,7 +155,7 @@ Public Class WebviewTaskPaneControl
         MenuItemResponseFilter.PerformClick()
     End Sub '响应过滤器设置菜单点击执行程序
     Private Sub conMenuItemRequestFilterSetup_Click(sender As Object, e As EventArgs) Handles conMenuItemRequestFilterSetup.Click
-
+        'Program.Main()
     End Sub
 
     Sub ReadBottomButtonScriptToDictionary()
@@ -201,6 +201,7 @@ Public Class WebviewTaskPaneControl
             Else
                 Me.lbPage.Text = "......"
             End If
+            Me.conMenuAllSetup.Enabled = False : Me.conMenuAllSetup.Enabled = True
         End If
     End Sub '执行JavaScript脚本
 

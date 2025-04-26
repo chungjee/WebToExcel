@@ -127,7 +127,7 @@ Partial Class WebviewTaskPaneControl
         Me.btnNavigate.Margin = New System.Windows.Forms.Padding(3, 3, 0, 0)
         Me.btnNavigate.Name = "btnNavigate"
         Me.btnNavigate.Size = New System.Drawing.Size(124, 25)
-        Me.btnNavigate.TabIndex = 0
+        Me.btnNavigate.TabIndex = 1
         Me.btnNavigate.TabStop = False
         Me.btnNavigate.Text = "转到"
         Me.btnNavigate.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
@@ -142,59 +142,59 @@ Partial Class WebviewTaskPaneControl
         Me.conMenuAllSetup.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuItemRequestSwitch, Me.MenuItemResponseSwitch, Me.ToolStripFirst, Me.conMenuItemLoginNas, Me.conMenuItemSystemSetup, Me.ToolStripSecond, Me.conMenuItemResponseFilterSetup, Me.conMenuItemRequestFilterSetup})
         Me.conMenuAllSetup.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow
         Me.conMenuAllSetup.Name = "ContextMenuStrip1"
-        Me.conMenuAllSetup.Size = New System.Drawing.Size(220, 236)
+        Me.conMenuAllSetup.Size = New System.Drawing.Size(209, 208)
         '
         'MenuItemRequestSwitch
         '
         Me.MenuItemRequestSwitch.AccessibleDescription = ""
         Me.MenuItemRequestSwitch.CheckOnClick = True
         Me.MenuItemRequestSwitch.Name = "MenuItemRequestSwitch"
-        Me.MenuItemRequestSwitch.Size = New System.Drawing.Size(219, 32)
+        Me.MenuItemRequestSwitch.Size = New System.Drawing.Size(208, 32)
         Me.MenuItemRequestSwitch.Text = "请求过滤器拦截"
         '
         'MenuItemResponseSwitch
         '
         Me.MenuItemResponseSwitch.CheckOnClick = True
         Me.MenuItemResponseSwitch.Name = "MenuItemResponseSwitch"
-        Me.MenuItemResponseSwitch.Size = New System.Drawing.Size(219, 32)
+        Me.MenuItemResponseSwitch.Size = New System.Drawing.Size(208, 32)
         Me.MenuItemResponseSwitch.Text = "响应过滤器捕捉"
         '
         'ToolStripFirst
         '
         Me.ToolStripFirst.Name = "ToolStripFirst"
-        Me.ToolStripFirst.Size = New System.Drawing.Size(216, 6)
+        Me.ToolStripFirst.Size = New System.Drawing.Size(205, 6)
         '
         'conMenuItemLoginNas
         '
         Me.conMenuItemLoginNas.Image = Global.Webview2ToExcel.My.Resources.Resources.qkwck9cj
         Me.conMenuItemLoginNas.Name = "conMenuItemLoginNas"
-        Me.conMenuItemLoginNas.Size = New System.Drawing.Size(219, 32)
+        Me.conMenuItemLoginNas.Size = New System.Drawing.Size(208, 32)
         Me.conMenuItemLoginNas.Text = "登录NAS系统"
         '
         'conMenuItemSystemSetup
         '
         Me.conMenuItemSystemSetup.Image = Global.Webview2ToExcel.My.Resources.Resources.l8ao716z
         Me.conMenuItemSystemSetup.Name = "conMenuItemSystemSetup"
-        Me.conMenuItemSystemSetup.Size = New System.Drawing.Size(219, 32)
+        Me.conMenuItemSystemSetup.Size = New System.Drawing.Size(208, 32)
         Me.conMenuItemSystemSetup.Text = "系统参数设置"
         '
         'ToolStripSecond
         '
         Me.ToolStripSecond.Name = "ToolStripSecond"
-        Me.ToolStripSecond.Size = New System.Drawing.Size(216, 6)
+        Me.ToolStripSecond.Size = New System.Drawing.Size(205, 6)
         '
         'conMenuItemResponseFilterSetup
         '
         Me.conMenuItemResponseFilterSetup.Image = Global.Webview2ToExcel.My.Resources.Resources.response11
         Me.conMenuItemResponseFilterSetup.Name = "conMenuItemResponseFilterSetup"
-        Me.conMenuItemResponseFilterSetup.Size = New System.Drawing.Size(219, 32)
+        Me.conMenuItemResponseFilterSetup.Size = New System.Drawing.Size(208, 32)
         Me.conMenuItemResponseFilterSetup.Text = "响应过滤器设置"
         '
         'conMenuItemRequestFilterSetup
         '
         Me.conMenuItemRequestFilterSetup.Image = Global.Webview2ToExcel.My.Resources.Resources.rtzh4ero1
         Me.conMenuItemRequestFilterSetup.Name = "conMenuItemRequestFilterSetup"
-        Me.conMenuItemRequestFilterSetup.Size = New System.Drawing.Size(219, 32)
+        Me.conMenuItemRequestFilterSetup.Size = New System.Drawing.Size(208, 32)
         Me.conMenuItemRequestFilterSetup.Text = "请求过滤器设置"
         '
         'wbvTaskPan
@@ -211,6 +211,8 @@ Partial Class WebviewTaskPaneControl
         '
         'palBottom
         '
+        Me.palBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.palBottom.CausesValidation = False
         Me.palBottom.ContextMenuStrip = Me.conMenuAllSetup
         Me.palBottom.Controls.Add(Me.btnBackward)
         Me.palBottom.Controls.Add(Me.lbCloseLoading)
@@ -219,22 +221,23 @@ Partial Class WebviewTaskPaneControl
         Me.palBottom.Controls.Add(Me.btnRight)
         Me.palBottom.Controls.Add(Me.btnUp)
         Me.palBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.palBottom.Font = New System.Drawing.Font("宋体", 12.0!)
+        Me.palBottom.Font = New System.Drawing.Font("宋体", 11.0!)
         Me.palBottom.Location = New System.Drawing.Point(0, 474)
         Me.palBottom.Margin = New System.Windows.Forms.Padding(0)
         Me.palBottom.Name = "palBottom"
+        Me.palBottom.Padding = New System.Windows.Forms.Padding(0, 1, 0, 0)
         Me.palBottom.Size = New System.Drawing.Size(704, 30)
-        Me.palBottom.TabIndex = 3
+        Me.palBottom.TabIndex = 100
         '
         'btnBackward
         '
         Me.btnBackward.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnBackward.Font = New System.Drawing.Font("宋体", 11.0!)
-        Me.btnBackward.Location = New System.Drawing.Point(102, 0)
+        Me.btnBackward.Location = New System.Drawing.Point(132, 1)
         Me.btnBackward.Margin = New System.Windows.Forms.Padding(0)
         Me.btnBackward.Name = "btnBackward"
-        Me.btnBackward.Size = New System.Drawing.Size(25, 30)
-        Me.btnBackward.TabIndex = 20
+        Me.btnBackward.Size = New System.Drawing.Size(25, 29)
+        Me.btnBackward.TabIndex = 4
         Me.btnBackward.Text = ">"
         Me.btnBackward.UseVisualStyleBackColor = True
         '
@@ -243,10 +246,10 @@ Partial Class WebviewTaskPaneControl
         Me.lbCloseLoading.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbCloseLoading.Dock = System.Windows.Forms.DockStyle.Left
         Me.lbCloseLoading.Font = New System.Drawing.Font("微软雅黑", 14.0!)
-        Me.lbCloseLoading.Location = New System.Drawing.Point(74, 0)
+        Me.lbCloseLoading.Location = New System.Drawing.Point(104, 1)
         Me.lbCloseLoading.Name = "lbCloseLoading"
-        Me.lbCloseLoading.Size = New System.Drawing.Size(28, 30)
-        Me.lbCloseLoading.TabIndex = 19
+        Me.lbCloseLoading.Size = New System.Drawing.Size(28, 29)
+        Me.lbCloseLoading.TabIndex = 3
         Me.lbCloseLoading.Text = "◉"
         Me.lbCloseLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
@@ -254,34 +257,36 @@ Partial Class WebviewTaskPaneControl
         '
         Me.btnForward.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnForward.Font = New System.Drawing.Font("宋体", 11.0!)
-        Me.btnForward.Location = New System.Drawing.Point(49, 0)
+        Me.btnForward.Location = New System.Drawing.Point(79, 1)
         Me.btnForward.Margin = New System.Windows.Forms.Padding(0)
         Me.btnForward.Name = "btnForward"
-        Me.btnForward.Size = New System.Drawing.Size(25, 30)
-        Me.btnForward.TabIndex = 18
+        Me.btnForward.Size = New System.Drawing.Size(25, 29)
+        Me.btnForward.TabIndex = 2
         Me.btnForward.Text = "<"
         Me.btnForward.UseVisualStyleBackColor = True
         '
         'lbPage
         '
+        Me.lbPage.AutoSize = True
         Me.lbPage.Dock = System.Windows.Forms.DockStyle.Left
-        Me.lbPage.Font = New System.Drawing.Font("宋体", 8.0!)
-        Me.lbPage.Location = New System.Drawing.Point(0, 0)
+        Me.lbPage.Font = New System.Drawing.Font("宋体", 9.0!)
+        Me.lbPage.Location = New System.Drawing.Point(0, 1)
         Me.lbPage.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbPage.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lbPage.Name = "lbPage"
-        Me.lbPage.Size = New System.Drawing.Size(49, 30)
+        Me.lbPage.Size = New System.Drawing.Size(79, 25)
         Me.lbPage.TabIndex = 17
-        Me.lbPage.Text = "......"
-        Me.lbPage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lbPage.Text = "........."
+        Me.lbPage.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         '
         'btnRight
         '
         Me.btnRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnRight.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.btnRight.Location = New System.Drawing.Point(648, 0)
+        Me.btnRight.Location = New System.Drawing.Point(648, 1)
         Me.btnRight.Name = "btnRight"
-        Me.btnRight.Size = New System.Drawing.Size(28, 30)
-        Me.btnRight.TabIndex = 9
+        Me.btnRight.Size = New System.Drawing.Size(28, 29)
+        Me.btnRight.TabIndex = 5
         Me.btnRight.Text = "⬅"
         Me.btnRight.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnRight.UseVisualStyleBackColor = True
@@ -290,11 +295,11 @@ Partial Class WebviewTaskPaneControl
         '
         Me.btnUp.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnUp.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.btnUp.Location = New System.Drawing.Point(676, 0)
+        Me.btnUp.Location = New System.Drawing.Point(676, 1)
         Me.btnUp.Margin = New System.Windows.Forms.Padding(0)
         Me.btnUp.Name = "btnUp"
-        Me.btnUp.Size = New System.Drawing.Size(28, 30)
-        Me.btnUp.TabIndex = 8
+        Me.btnUp.Size = New System.Drawing.Size(28, 29)
+        Me.btnUp.TabIndex = 6
         Me.btnUp.Text = "⬆"
         Me.btnUp.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.btnUp.UseVisualStyleBackColor = True
@@ -429,6 +434,7 @@ Partial Class WebviewTaskPaneControl
         Me.conMenuAllSetup.ResumeLayout(False)
         CType(Me.wbvTaskPan, System.ComponentModel.ISupportInitialize).EndInit()
         Me.palBottom.ResumeLayout(False)
+        Me.palBottom.PerformLayout()
         Me.mnuSystem.ResumeLayout(False)
         Me.mnuSystem.PerformLayout()
         Me.ResumeLayout(False)

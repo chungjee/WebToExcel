@@ -64,18 +64,21 @@ Module WebViewEvents  'WebView2控件事件处理模块
                 Dim content As String = Await getResponseContext(response)
                 Debug.WriteLine(Now() & "：" & key.Item("url").Value(Of String) & Chr(13))
                 If content <> "" And content.Length > 10 Then
-                    If runVBAFunction(uriRequest, content) = True Then
-                        With Globals.ThisAddIn.tpConstomWebVieTaskPanel
-                            .ExecuteJavaScriptAsync()
-                            .conMenuAllSetup.Enabled = False : .conMenuAllSetup.Enabled = True
-                        End With
+                    Dim strVBAFunctionName As String = uriRequestToVBAFunctionName(uriRequest)
+                    If runVBAFunction(strVBAFunctionName, content) = True Then
+                        Globals.ThisAddIn.tpConstomWebVieTaskPanel.ExecuteJavaScriptAsync()
                     Else
-                        If MsgBox("数据解析失败！是否让大模型进行解析输出？", MsgBoxStyle.YesNo, "请选择是否大模型解析输出") = MsgBoxResult.Yes Then
-                            DeepSeek.jsonToVBA(content)
+                        xlApp.Run("frmHidden")
+                        If MsgBox("数据解析失败！是否让大模型进行解析输出？", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, "提示") = MsgBoxResult.Yes Then
+                            xlApp.Run("frmShow")
+                            Program.jsonToVBA(content, strVBAFunctionName)
                         End If
                     End If
                 End If
-                xlApp.Run("frmHidden")
+                Try
+                    xlApp.Run("frmHidden")
+                Catch ex As Exception
+                End Try
                 Return
             End If
         Next key
@@ -94,12 +97,14 @@ Module WebViewEvents  'WebView2控件事件处理模块
                 Return
             End If
             xlApp.Run("frmShow")
-            Dim strFileName As String = WebViewEvents.downloadFileToExcel(e.DownloadOperation.Uri).Result
+            Dim strFileName As String = Regex.Replace(Path.GetFileName(MdlLoad.strFileFullName), "([^\u4e00-\u9fa5]{0,}$)", "")
+            If strFileName = "" Then strFileName = Path.GetFileNameWithoutExtension(MdlLoad.strFileFullName)
+            strFileName = WebViewEvents.downloadFileToExcel(e.DownloadOperation.Uri, strFileName).Result
             If strFileName <> "" Then
                 Dim uriRequestFile As New Uri((e.DownloadOperation.Uri))
                 uriRequestFile = New Uri(Replace(uriRequestFile.AbsoluteUri, uriRequestFile.Query, ""))
                 uriRequestFile = New Uri(uriRequestFile.AbsoluteUri.Substring(0, uriRequestFile.AbsoluteUri.LastIndexOf("/") + 1) & Path.GetFileNameWithoutExtension(strFileName))
-                MdlLoad.runVBAFunction(uriRequestFile, strFileName)
+                MdlLoad.runVBAFunction(uriRequestToVBAFunctionName(uriRequestFile), strFileName)
                 With Globals.ThisAddIn.tpConstomWebVieTaskPanel
                     .conMenuAllSetup.Enabled = False : .conMenuAllSetup.Enabled = True
                 End With
@@ -165,7 +170,7 @@ Module WebViewEvents  'WebView2控件事件处理模块
                 Dim uriRequestFile As New Uri((e.Uri))
                 uriRequestFile = New Uri(Replace(uriRequestFile.AbsoluteUri, uriRequestFile.Query, ""))
                 uriRequestFile = New Uri(uriRequestFile.AbsoluteUri.Substring(0, uriRequestFile.AbsoluteUri.LastIndexOf("/") + 1) & Path.GetFileNameWithoutExtension(strFileName))
-                MdlLoad.runVBAFunction(uriRequestFile, strFileName)
+                MdlLoad.runVBAFunction(uriRequestToVBAFunctionName(uriRequestFile), strFileName)
                 With Globals.ThisAddIn.tpConstomWebVieTaskPanel
                     .conMenuAllSetup.Enabled = False : .conMenuAllSetup.Enabled = True
                 End With
@@ -177,17 +182,17 @@ Module WebViewEvents  'WebView2控件事件处理模块
         End If
     End Sub 'webview2控件新窗口请求事件执行程序
 
-    Async Function downloadFileToExcel(strUrl As String) As Threading.Tasks.Task(Of String)
+    Async Function downloadFileToExcel(strUrl As String, Optional strFileName As String = "") As Threading.Tasks.Task(Of String)
         Dim uriFileName As New Uri(strUrl)
-        Dim fileName As String = Regex.Replace(System.Web.HttpUtility.UrlDecode(uriFileName.AbsolutePath.Substring(uriFileName.AbsolutePath.LastIndexOf("/") + 1)), "([^\u4e00-\u9fa5]{0,}$)", "")
+        If strFileName = "" Then strFileName = Regex.Replace(System.Web.HttpUtility.UrlDecode(uriFileName.AbsolutePath.Substring(uriFileName.AbsolutePath.LastIndexOf("/") + 1)), "([^\u4e00-\u9fa5]{0,}$)", "")
         Using httpClient As New System.Net.Http.HttpClient()
             Dim response As System.Net.Http.HttpResponseMessage = Await httpClient.GetAsync(strUrl)
             response.EnsureSuccessStatusCode()
             Dim contentStream As Byte() = Await response.Content.ReadAsByteArrayAsync()
             Dim unixTimestamp As String = (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds
             Dim filePath As String
-            If fileName <> "" Then
-                filePath = Path.Combine(System.IO.Path.GetTempPath(), fileName & ".xls")
+            If strFileName <> "" Then
+                filePath = Path.Combine(System.IO.Path.GetTempPath(), strFileName & ".xls")
             Else
                 filePath = Path.Combine(System.IO.Path.GetTempPath(), unixTimestamp & ".xls")
             End If
@@ -221,7 +226,25 @@ Module WebViewEvents  'WebView2控件事件处理模块
         File.WriteAllBytes(filePath, bytes)
         'Debug.WriteLine("文件已保存到: " & filePath)
         Dim uriRequestFile As New Uri("http://strVBAFunctionName")
-        MdlLoad.runVBAFunction(uriRequestFile, filePath)
+        MdlLoad.runVBAFunction(uriRequestToVBAFunctionName(uriRequestFile), filePath)
 
     End Sub ' webview2控件保存base64数据到文件的函数
+
+    Private Function uriRequestToVBAFunctionName(uriRequest As Uri) As String
+        Dim strVBAFunctionName As String
+        With uriRequest
+            If .AbsolutePath <> "/" Then
+                If .Query.Length > 1 Then
+                    strVBAFunctionName = .AbsolutePath & .Query
+                Else
+                    strVBAFunctionName = .AbsolutePath
+                End If
+            Else
+                strVBAFunctionName = .AbsoluteUri.Substring(.AbsoluteUri.LastIndexOf("://") + 3)
+            End If '根据URI获取VBA函数名称和模块名称，如果URI中没有绝对路径，则使用URI的主机名称作为函数名称
+        End With
+        strVBAFunctionName = System.Web.HttpUtility.UrlEncode(Regex.Replace(strVBAFunctionName, "[^A-Z0-9\u4e00-\u9fa5a-zA-Z0-9]", "")）
+        strVBAFunctionName = UCase(Regex.Replace(strVBAFunctionName, "[^a-zA-Z0-9]", ""))
+        Return strVBAFunctionName
+    End Function
 End Module

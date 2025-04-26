@@ -135,21 +135,8 @@ Module MdlLoad
     End Function
 
     '根据URI获取VBA函数名称，模块名称，调用VBA函数，并传递参数,如果VBA函数不存在，下载VBA函数代码文件，并加载VBA函数代码，如果VBA函数代码文件不存在，提示下载失败；如果VBA函数代码文件存在，加载VBA函数代码，并调用VBA函数，如果加载失败，提示加载失败；如果加载成功，调用VBA函数，并传递参数，如果调用失败，提示调用失败；如果调用成功，返回True，否则返回False
-    Public Function runVBAFunction(ByVal uriToVBAFuctionName As Uri, ByVal strParameters As String) As Boolean
-        Dim strVBAFunctionName As String, strVBModuleName As String
-        If uriToVBAFuctionName.AbsolutePath <> "/" Then
-            If uriToVBAFuctionName.Query.Length > 1 Then
-                strVBAFunctionName = uriToVBAFuctionName.AbsolutePath & uriToVBAFuctionName.Query
-            Else
-                strVBAFunctionName = uriToVBAFuctionName.AbsolutePath
-            End If
-        Else
-            strVBAFunctionName = uriToVBAFuctionName.AbsoluteUri.Substring(uriToVBAFuctionName.AbsoluteUri.LastIndexOf("://") + 3)
-        End If '根据URI获取VBA函数名称和模块名称，如果URI中没有绝对路径，则使用URI的主机名称作为函数名称
-
-        strVBAFunctionName = System.Web.HttpUtility.UrlEncode(Regex.Replace(strVBAFunctionName, "[^A-Z0-9\u4e00-\u9fa5a-zA-Z0-9]", "")）
-        strVBAFunctionName = UCase(Regex.Replace(strVBAFunctionName, "[^a-zA-Z0-9]", ""))
-
+    Public Function runVBAFunction(ByVal strVBAFunctionName As String, ByVal strParameters As String) As Boolean
+        Dim strVBModuleName As String
         If strVBAFunctionName.Length > 30 Then
             strVBModuleName = strVBAFunctionName.Substring(0, 30)
         Else
@@ -188,11 +175,11 @@ Module MdlLoad
                                     End Try '下载代码文件成功，重新加载VBA模块代码
                                 Else
                                     If InStr(strParameters, ".xls") Then
-                                        objVBModuleComponent.CodeModule.AddFromString(My.ChungJee.Default.strNoVBAFunction)
-                                        xlApp.Run(strVBModuleName & ".strVBAFunctionName", strParameters)
+                                        objVBModuleComponent.CodeModule.AddFromString(My.ChungJee.Default.strNoVBAFunction.Replace("strVBAFunctionName", strVBAFunctionName))
+                                        xlApp.Run(strVBAFunctionName, strParameters)
                                         Return True
                                     Else
-
+                                        '如果不是Excel文件无法统一格式输出，只能通过大模型进行分析输出
                                     End If
                                 End If '如果代码文件下载成功，重新加载VBA模块代码，否则提示下载失败
                             Else
@@ -204,8 +191,9 @@ Module MdlLoad
                     End Try 'VBA工程中已经存在该模块，重新加载VBA模块代码
                 Else
                     objVBModuleComponent.CodeModule.DeleteLines(1, objVBModuleComponent.CodeModule.CountOfLines)
-                    objVBModuleComponent.CodeModule.AddFromString(My.ChungJee.Default.strNoVBAFunction)
-                    xlApp.Run(strVBModuleName & ".strVBAFunctionName", strParameters)
+                    objVBModuleComponent.CodeModule.AddFromString(My.ChungJee.Default.strNoVBAFunction.Replace("strVBAFunctionName", strVBAFunctionName))
+                    xlApp.Run(strVBAFunctionName, strParameters)
+                    Return True
                 End If 'VBA工程中已经存在该模块，该模块中的代码为空，重新加载VBA模块代码，如果代码文件不存在，下载代码文件
             Catch ex1 As Exception
                 If ex1.Message.Contains("不信任") Then
@@ -239,6 +227,7 @@ Module MdlLoad
                                     Else
                                         If InStr(strParameters, ".xls") Then
                                             .CodeModule.AddFromString(My.ChungJee.Default.strNoVBAFunction.Replace("strVBAFunctionName", strVBAFunctionName))
+                                            'Debug.WriteLine(.CodeModule)
                                             xlApp.Run(strVBAFunctionName, strParameters)
                                             Return True
                                         End If
