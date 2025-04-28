@@ -25,7 +25,7 @@ Partial Class frmAnalysiserSetup
         Me.components = New System.ComponentModel.Container()
         Dim TreeNode1 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("网络响应过滤器")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAnalysiserSetup))
-        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.OpenFileDialogSelectFile = New System.Windows.Forms.OpenFileDialog()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.btnAddFilter = New System.Windows.Forms.Button()
@@ -37,11 +37,15 @@ Partial Class frmAnalysiserSetup
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.trvResponseFilter = New System.Windows.Forms.TreeView()
         Me.ContextMenuReaponseFilter = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.删除节点ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.更新节点ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.插入节点ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.重新加载ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItemDeleteNode = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItemUpdateNode = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItemInsertNode = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItemReloadNode = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripMenuItemImportNodes = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItemExportNodes = New System.Windows.Forms.ToolStripMenuItem()
         Me.txtContentEdit = New System.Windows.Forms.TextBox()
+        Me.SaveFileDialogExportNodes = New System.Windows.Forms.SaveFileDialog()
         Me.Panel1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -50,7 +54,7 @@ Partial Class frmAnalysiserSetup
         Me.ContextMenuReaponseFilter.SuspendLayout()
         Me.SuspendLayout()
         '
-        'OpenFileDialog1
+        'OpenFileDialogSelectFile
         '
         '
         'Panel1
@@ -70,9 +74,9 @@ Partial Class frmAnalysiserSetup
         'Button1
         '
         Me.Button1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Button1.Location = New System.Drawing.Point(335, 0)
+        Me.Button1.Location = New System.Drawing.Point(333, 0)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 30)
+        Me.Button1.Size = New System.Drawing.Size(90, 30)
         Me.Button1.TabIndex = 9
         Me.Button1.Text = "字体设置"
         Me.Button1.UseVisualStyleBackColor = True
@@ -82,7 +86,7 @@ Partial Class frmAnalysiserSetup
         Me.btnAddFilter.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnAddFilter.Location = New System.Drawing.Point(235, 0)
         Me.btnAddFilter.Name = "btnAddFilter"
-        Me.btnAddFilter.Size = New System.Drawing.Size(100, 30)
+        Me.btnAddFilter.Size = New System.Drawing.Size(98, 30)
         Me.btnAddFilter.TabIndex = 8
         Me.btnAddFilter.Text = "添加过滤器"
         Me.btnAddFilter.UseVisualStyleBackColor = True
@@ -175,37 +179,54 @@ Partial Class frmAnalysiserSetup
         '
         Me.ContextMenuReaponseFilter.Font = New System.Drawing.Font("Microsoft YaHei UI", 10.0!)
         Me.ContextMenuReaponseFilter.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuReaponseFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.删除节点ToolStripMenuItem, Me.更新节点ToolStripMenuItem, Me.插入节点ToolStripMenuItem, Me.重新加载ToolStripMenuItem})
+        Me.ContextMenuReaponseFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItemDeleteNode, Me.ToolStripMenuItemUpdateNode, Me.ToolStripMenuItemInsertNode, Me.ToolStripMenuItemReloadNode, Me.ToolStripSeparator1, Me.ToolStripMenuItemImportNodes, Me.ToolStripMenuItemExportNodes})
         Me.ContextMenuReaponseFilter.Name = "ContextMenuReaponseFilter"
-        Me.ContextMenuReaponseFilter.Size = New System.Drawing.Size(153, 116)
+        Me.ContextMenuReaponseFilter.Size = New System.Drawing.Size(187, 178)
         '
-        '删除节点ToolStripMenuItem
+        'ToolStripMenuItemDeleteNode
         '
-        Me.删除节点ToolStripMenuItem.Image = Global.Webview2ToExcel.My.Resources.Resources._112
-        Me.删除节点ToolStripMenuItem.Name = "删除节点ToolStripMenuItem"
-        Me.删除节点ToolStripMenuItem.Size = New System.Drawing.Size(152, 28)
-        Me.删除节点ToolStripMenuItem.Text = "删除节点"
+        Me.ToolStripMenuItemDeleteNode.Image = Global.Webview2ToExcel.My.Resources.Resources._112
+        Me.ToolStripMenuItemDeleteNode.Name = "ToolStripMenuItemDeleteNode"
+        Me.ToolStripMenuItemDeleteNode.Size = New System.Drawing.Size(186, 28)
+        Me.ToolStripMenuItemDeleteNode.Text = "删除节点"
         '
-        '更新节点ToolStripMenuItem
+        'ToolStripMenuItemUpdateNode
         '
-        Me.更新节点ToolStripMenuItem.Image = Global.Webview2ToExcel.My.Resources.Resources.l8g7ce39
-        Me.更新节点ToolStripMenuItem.Name = "更新节点ToolStripMenuItem"
-        Me.更新节点ToolStripMenuItem.Size = New System.Drawing.Size(152, 28)
-        Me.更新节点ToolStripMenuItem.Text = "更新节点"
+        Me.ToolStripMenuItemUpdateNode.Image = Global.Webview2ToExcel.My.Resources.Resources.l8g7ce39
+        Me.ToolStripMenuItemUpdateNode.Name = "ToolStripMenuItemUpdateNode"
+        Me.ToolStripMenuItemUpdateNode.Size = New System.Drawing.Size(186, 28)
+        Me.ToolStripMenuItemUpdateNode.Text = "更新节点"
         '
-        '插入节点ToolStripMenuItem
+        'ToolStripMenuItemInsertNode
         '
-        Me.插入节点ToolStripMenuItem.Image = Global.Webview2ToExcel.My.Resources.Resources.屏幕截图_25_4_2025_16414_image_baidu_com
-        Me.插入节点ToolStripMenuItem.Name = "插入节点ToolStripMenuItem"
-        Me.插入节点ToolStripMenuItem.Size = New System.Drawing.Size(152, 28)
-        Me.插入节点ToolStripMenuItem.Text = "插入节点"
+        Me.ToolStripMenuItemInsertNode.Image = Global.Webview2ToExcel.My.Resources.Resources.屏幕截图_25_4_2025_16414_image_baidu_com
+        Me.ToolStripMenuItemInsertNode.Name = "ToolStripMenuItemInsertNode"
+        Me.ToolStripMenuItemInsertNode.Size = New System.Drawing.Size(186, 28)
+        Me.ToolStripMenuItemInsertNode.Text = "插入节点"
         '
-        '重新加载ToolStripMenuItem
+        'ToolStripMenuItemReloadNode
         '
-        Me.重新加载ToolStripMenuItem.Image = Global.Webview2ToExcel.My.Resources.Resources._2tshc3uf
-        Me.重新加载ToolStripMenuItem.Name = "重新加载ToolStripMenuItem"
-        Me.重新加载ToolStripMenuItem.Size = New System.Drawing.Size(152, 28)
-        Me.重新加载ToolStripMenuItem.Text = "重新加载"
+        Me.ToolStripMenuItemReloadNode.Image = Global.Webview2ToExcel.My.Resources.Resources._2tshc3uf
+        Me.ToolStripMenuItemReloadNode.Name = "ToolStripMenuItemReloadNode"
+        Me.ToolStripMenuItemReloadNode.Size = New System.Drawing.Size(186, 28)
+        Me.ToolStripMenuItemReloadNode.Text = "重新加载"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(183, 6)
+        '
+        'ToolStripMenuItemImportNodes
+        '
+        Me.ToolStripMenuItemImportNodes.Name = "ToolStripMenuItemImportNodes"
+        Me.ToolStripMenuItemImportNodes.Size = New System.Drawing.Size(186, 28)
+        Me.ToolStripMenuItemImportNodes.Text = "导入节点集合"
+        '
+        'ToolStripMenuItemExportNodes
+        '
+        Me.ToolStripMenuItemExportNodes.Name = "ToolStripMenuItemExportNodes"
+        Me.ToolStripMenuItemExportNodes.Size = New System.Drawing.Size(186, 28)
+        Me.ToolStripMenuItemExportNodes.Text = "导出节点集合"
         '
         'txtContentEdit
         '
@@ -217,6 +238,9 @@ Partial Class frmAnalysiserSetup
         Me.txtContentEdit.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtContentEdit.Size = New System.Drawing.Size(648, 496)
         Me.txtContentEdit.TabIndex = 8
+        '
+        'SaveFileDialogExportNodes
+        '
         '
         'frmAnalysiserSetup
         '
@@ -243,7 +267,7 @@ Partial Class frmAnalysiserSetup
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents OpenFileDialog1 As Windows.Forms.OpenFileDialog
+    Friend WithEvents OpenFileDialogSelectFile As Windows.Forms.OpenFileDialog
     Friend WithEvents txtFileName As Windows.Forms.TextBox
     Friend WithEvents btnBrowseFile As Windows.Forms.Button
     Friend WithEvents btnUploadFile As Windows.Forms.Button
@@ -256,8 +280,12 @@ Partial Class frmAnalysiserSetup
     Friend WithEvents btnAddFilter As Windows.Forms.Button
     Friend WithEvents Button1 As Windows.Forms.Button
     Friend WithEvents ContextMenuReaponseFilter As Windows.Forms.ContextMenuStrip
-    Friend WithEvents 删除节点ToolStripMenuItem As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents 更新节点ToolStripMenuItem As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents 插入节点ToolStripMenuItem As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents 重新加载ToolStripMenuItem As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItemDeleteNode As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItemUpdateNode As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItemInsertNode As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItemReloadNode As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As Windows.Forms.ToolStripSeparator
+    Friend WithEvents ToolStripMenuItemImportNodes As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItemExportNodes As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents SaveFileDialogExportNodes As Windows.Forms.SaveFileDialog
 End Class

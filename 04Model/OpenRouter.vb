@@ -73,7 +73,7 @@ Module Program
         Dim strBigModelName As String = "microsoft/mai-ds-r1:free"
         Dim strSystemPrompt As String = "你是一个Json格式内容分析小能手"
         Dim strUserPrompt As String = "以下内容为JSON格式的文本，对JSON内容进行分析，将你认为有意义的内容，通过编写一个Visual Basic宏输出到excel当前工作簿,对VBA宏的要求是：宏名称为" & strOldFunctionName & "，宏的参数为strJson as string，将Json的内容以参数方式传递给宏;如果提取的字段为英文就将字段名翻译成中文名称；对Json内容解析请使用frmLoading_ChungJee.ParseJson(ByVal JsonString As String)这个函数；输出到Excel工作表时，要考虑到美观，如果有可能请使用超级表进行输出;在函数体的首行加入错误处理语句""On Error Resume Next""，以保证VBA宏能完整运行。对返回结果的要求是：因为需要将返回的内容直接写入vba的工程中，所以要求只给出VBA代码，不要有其他任何无关内容，也不要有任何注释,返回结果的开头和结尾也不要有注释，以保证返回的代码能够直接运行。"
-        Dim apiKey = "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"
+        Dim apiKey = ""
         Dim client = New OpenRouterClient(apiKey)
         Dim request = New OpenRouterRequest With {
             .model = strBigModelName,
