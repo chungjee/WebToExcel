@@ -2,6 +2,8 @@
 Imports Microsoft.Office.Tools.Ribbon
 
 Public Class Ribbon
+    Public strFrmShow As String
+    Public strFrmHidden As String
     Private Sub Ribbon1_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
     End Sub
     Private Sub btnSystemSetup_Click(sender As Object, e As RibbonControlEventArgs)
@@ -78,5 +80,10 @@ Public Class Ribbon
 
     Private Sub btnDouYin_Click(sender As Object, e As RibbonControlEventArgs) Handles btnDouYin.Click
         btnClick(sender)
+    End Sub
+
+    Private Sub Ribbon_Load(sender As Object, e As RibbonUIEventArgs) Handles Me.Load
+        Me.strFrmHidden = My.ChungJee.Default.strFrmHidden
+        Me.strFrmShow = My.ChungJee.Default.strFrmShow
     End Sub
 End Class

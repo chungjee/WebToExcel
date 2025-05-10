@@ -32,15 +32,21 @@ Module NasModel
             Return ""
         End Try
     End Function
-    Public Function nasDownloadFile(strUrl As String, strFileName As String) As String
+    Public Function nasDownloadVBAFunctionFile(strUrl As String, strFileName As String) As String
         Dim result As String
         Dim objWebClient As New System.Net.WebClient()
         Try
             objWebClient.DownloadFile(strUrl, strFileName)
             Dim fileContent As String = File.ReadAllText(strFileName, Encoding.UTF8)
+            'objWebClient.
             '以 ANSI 编码重新写入文件
-            File.WriteAllText(strFileName, fileContent, Encoding.Default)
-            result = strFileName
+            If fileContent.StartsWith("{") And fileContent.EndsWith("}") Then
+                MsgBox(fileContent)
+                result = String.Empty
+            Else
+                File.WriteAllText(strFileName, fileContent, Encoding.Default)
+                result = strFileName
+            End If
         Catch ex As Exception
             ' 处理异常
             Debug.WriteLine("下载失败: " & ex.Message)

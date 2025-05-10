@@ -46,6 +46,9 @@
         Me.TabInter = Me.Factory.CreateRibbonTab
         Me.tab_WebView = Me.Factory.CreateRibbonTab
         Me.Group2 = Me.Factory.CreateRibbonGroup
+        Me.btnMeiTuan = Me.Factory.CreateRibbonButton
+        Me.btnDouYin = Me.Factory.CreateRibbonButton
+        Me.btnTaxation = Me.Factory.CreateRibbonButton
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.btnTaskPanel = Me.Factory.CreateRibbonButton
         Me.Menu1 = Me.Factory.CreateRibbonMenu
@@ -56,9 +59,6 @@
         Me.btnSystemSetup = Me.Factory.CreateRibbonButton
         Me.btnRequestFilter = Me.Factory.CreateRibbonButton
         Me.btnResponseFilter = Me.Factory.CreateRibbonButton
-        Me.btnMeiTuan = Me.Factory.CreateRibbonButton
-        Me.btnDouYin = Me.Factory.CreateRibbonButton
-        Me.btnTaxation = Me.Factory.CreateRibbonButton
         Me.TabInter.SuspendLayout()
         Me.tab_WebView.SuspendLayout()
         Me.Group2.SuspendLayout()
@@ -83,6 +83,34 @@
         Me.Group2.Items.Add(Me.btnTaxation)
         Me.Group2.Label = "WebView2"
         Me.Group2.Name = "Group2"
+        '
+        'btnMeiTuan
+        '
+        Me.btnMeiTuan.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnMeiTuan.Image = Global.Webview2ToExcel.My.Resources.Resources._5
+        Me.btnMeiTuan.Label = "美团登录"
+        Me.btnMeiTuan.Name = "btnMeiTuan"
+        Me.btnMeiTuan.ScreenTip = "https://e.dianping.com/"
+        Me.btnMeiTuan.ShowImage = True
+        '
+        'btnDouYin
+        '
+        Me.btnDouYin.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnDouYin.Image = Global.Webview2ToExcel.My.Resources.Resources.ed2m9iwp
+        Me.btnDouYin.Label = "抖音来客"
+        Me.btnDouYin.Name = "btnDouYin"
+        Me.btnDouYin.ScreenTip = "https://life.douyin.com/p/login"
+        Me.btnDouYin.ShowImage = True
+        '
+        'btnTaxation
+        '
+        Me.btnTaxation.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnTaxation.Image = Global.Webview2ToExcel.My.Resources.Resources.hura1zfr
+        Me.btnTaxation.Label = "电子税务"
+        Me.btnTaxation.Name = "btnTaxation"
+        Me.btnTaxation.ScreenTip = "https://dppt.hebei.chinatax.gov.cn:8443/invoice-query/invoice-query"
+        Me.btnTaxation.ShowImage = True
+        Me.btnTaxation.Tag = "https://dppt.hebei.chinatax.gov.cn:8443/invoice-query/invoice-query"
         '
         'ImageList1
         '
@@ -154,33 +182,6 @@
         Me.btnResponseFilter.Label = "响应过滤器设置"
         Me.btnResponseFilter.Name = "btnResponseFilter"
         Me.btnResponseFilter.ShowImage = True
-        '
-        'btnMeiTuan
-        '
-        Me.btnMeiTuan.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.btnMeiTuan.Image = Global.Webview2ToExcel.My.Resources.Resources._5
-        Me.btnMeiTuan.Label = "美团登录"
-        Me.btnMeiTuan.Name = "btnMeiTuan"
-        Me.btnMeiTuan.ScreenTip = "https://e.dianping.com/"
-        Me.btnMeiTuan.ShowImage = True
-        '
-        'btnDouYin
-        '
-        Me.btnDouYin.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.btnDouYin.Image = Global.Webview2ToExcel.My.Resources.Resources.ed2m9iwp
-        Me.btnDouYin.Label = "抖音来客"
-        Me.btnDouYin.Name = "btnDouYin"
-        Me.btnDouYin.ScreenTip = "https://life.douyin.com/p/login"
-        Me.btnDouYin.ShowImage = True
-        '
-        'btnTaxation
-        '
-        Me.btnTaxation.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.btnTaxation.Image = Global.Webview2ToExcel.My.Resources.Resources.hura1zfr
-        Me.btnTaxation.Label = "电子税务"
-        Me.btnTaxation.Name = "btnTaxation"
-        Me.btnTaxation.ScreenTip = "https://tpass.hebei.chinatax.gov.cn:8443/#/login"
-        Me.btnTaxation.ShowImage = True
         '
         'Ribbon
         '

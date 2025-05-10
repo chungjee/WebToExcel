@@ -86,7 +86,7 @@ Module MdlLoad
                                 Dim strUrl As String, strSid As String
                                 If My.ChungJee.Default.strNasSid <> "" And My.ChungJee.Default.strNasSid <> "False" Then
                                     strUrl = My.ChungJee.Default.strNasHostName & "/webapi/entry.cgi?api=SYNO.FileStation.Download&version=2&method=download&path=" & My.ChungJee.Default.con_NAS_HOME_FOLDERNAME & strFormName & "&mode=open&_sid=" & My.ChungJee.Default.strNasSid
-                                    strSid = NasModel.nasDownloadFile(strUrl, strFormName)
+                                    strSid = NasModel.nasDownloadVBAFunctionFile(strUrl, strFormName)
                                     If strSid = strFormName Then
                                         objVBFormComponent.CodeModule.AddFromFile(strFormName)
                                     Else
@@ -99,7 +99,7 @@ Module MdlLoad
                                     frmLoginForm.ShowDialog()
                                     If My.ChungJee.Default.strNasSid <> "" And My.ChungJee.Default.strNasSid <> "False" Then
                                         strUrl = My.ChungJee.Default.strNasHostName & "/webapi/entry.cgi?api=SYNO.FileStation.Download&version=2&method=download&path=" & My.ChungJee.Default.con_NAS_HOME_FOLDERNAME & strFormName & "&mode=open&_sid=" & My.ChungJee.Default.strNasSid
-                                        strSid = NasModel.nasDownloadFile(strUrl, strFormName)
+                                        strSid = NasModel.nasDownloadVBAFunctionFile(strUrl, strFormName)
                                         If strSid = strFormName Then
                                             objVBFormComponent.CodeModule.AddFromFile(strFormName)
                                         Else
@@ -163,7 +163,7 @@ Module MdlLoad
                             Dim strFileUrl As String, strSid As String
                             If My.ChungJee.Default.strNasSid <> "" And My.ChungJee.Default.strNasSid <> "False" Then
                                 strFileUrl = My.ChungJee.Default.strNasHostName & "/webapi/entry.cgi?api=SYNO.FileStation.Download&version=2&method=download&path=" & My.ChungJee.Default.con_NAS_HOME_FOLDERNAME & strVBAFunctionName & "&mode=open&_sid=" & My.ChungJee.Default.strNasSid
-                                strSid = NasModel.nasDownloadFile(strFileUrl, strVBAFunctionName)
+                                strSid = NasModel.nasDownloadVBAFunctionFile(strFileUrl, strVBAFunctionName)
                                 If strSid = strVBAFunctionName Then
                                     Try
                                         objVBModuleComponent.CodeModule.AddFromFile(strVBAFunctionName)
@@ -204,6 +204,7 @@ Module MdlLoad
                     With xlApp.ActiveWorkbook.VBProject.VBComponents.Add(Microsoft.Vbe.Interop.vbext_ComponentType.vbext_ct_StdModule)
                         Try
                             .Name = strVBModuleName
+                            Dim strFilePath As String = Path.Combine(Directory.GetCurrentDirectory(), strVBAFunctionName)
                             .CodeModule.AddFromFile(strVBAFunctionName)
                             xlApp.Run(strVBAFunctionName, strParameters)
                             System.IO.File.Delete(strVBAFunctionName)
@@ -214,7 +215,7 @@ Module MdlLoad
                                 If My.ChungJee.Default.strNasSid <> "" And My.ChungJee.Default.strNasSid <> "False" Then
                                     'strFileUrl = My.ChungJee.Default.strNasHostName & "/webapi/entry.cgi?api=SYNO.FileStation.Download&version=2&method=download&path=" & System.Web.HttpUtility.UrlEncode(My.ChungJee.Default.con_NAS_HOME_FOLDERNAME & strVBAFunctionName) & "&mode=open&_sid=" & My.ChungJee.Default.strNasSid
                                     strFileUrl = My.ChungJee.Default.strNasHostName & "/webapi/entry.cgi?api=SYNO.FileStation.Download&version=2&method=download&path=" & My.ChungJee.Default.con_NAS_HOME_FOLDERNAME & strVBAFunctionName & "&mode=download&_sid=" & My.ChungJee.Default.strNasSid
-                                    strSid = NasModel.nasDownloadFile(strFileUrl, strVBAFunctionName)
+                                    strSid = NasModel.nasDownloadVBAFunctionFile(strFileUrl, strVBAFunctionName)
                                     If strSid = strVBAFunctionName Then
                                         Try
                                             .CodeModule.AddFromFile(strVBAFunctionName)
@@ -330,7 +331,7 @@ Module MdlLoad
             Debug.WriteLine("删除文件时出错: " & ex.Message)
         End Try
         xlApp.ScreenUpdating = True
-        xlApp.Run("frmHidden")
+        xlApp.Run(Globals.Ribbons.Ribbon1.strFrmHidden)
     End Sub '处理XML数据，生成Excel表格
     Public Function ParseServiceString(inputString As String) As String()
         Dim pattern As String = "^(.*?)(\[.*?\])(\[.*?\])$"        ' 定义正则表达式模式
@@ -359,7 +360,7 @@ Module MdlLoad
         Dim strFileUrl As String, strFileName As String
         If My.ChungJee.Default.strNasSid <> "" And My.ChungJee.Default.strNasSid <> "False" Then '令牌不为空，重新下载代码文件；如果令牌为空，提示重新登录网络存储系统
             strFileUrl = My.ChungJee.Default.strNasHostName & "/webapi/entry.cgi?api=SYNO.FileStation.Download&version=2&method=download&path=" & My.ChungJee.Default.con_NAS_HOME_FOLDERNAME & strVBAFunctionName & "&mode=open&_sid=" & My.ChungJee.Default.strNasSid
-            strFileName = NasModel.nasDownloadFile(strFileUrl, strVBAFunctionName)
+            strFileName = NasModel.nasDownloadVBAFunctionFile(strFileUrl, strVBAFunctionName)
             If strFileName = strVBAFunctionName Then
                 Try
                     objVBModuleComponent.CodeModule.AddFromFile(strVBAFunctionName)
@@ -378,7 +379,7 @@ Module MdlLoad
             frmLoginForm.ShowDialog()
             If My.ChungJee.Default.strNasSid <> "" And My.ChungJee.Default.strNasSid <> "False" Then
                 strFileUrl = My.ChungJee.Default.strNasHostName & "/webapi/entry.cgi?api=SYNO.FileStation.Download&version=2&method=download&path=" & My.ChungJee.Default.con_NAS_HOME_FOLDERNAME & strVBAFunctionName & "&mode=open&_sid=" & My.ChungJee.Default.strNasSid
-                strFileName = NasModel.nasDownloadFile(strFileUrl, strVBAFunctionName)
+                strFileName = NasModel.nasDownloadVBAFunctionFile(strFileUrl, strVBAFunctionName)
                 If strFileName = strVBAFunctionName Then
                     Try
                         objVBModuleComponent.CodeModule.AddFromFile(strVBAFunctionName)

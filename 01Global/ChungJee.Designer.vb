@@ -154,13 +154,15 @@ Namespace My
             "ldValue"":"":20"",""newValue"":"":300""},{""url"":""https://e.dianping.com/couponrecord/co"& _ 
             "nsumeItemsNewDownload""},{""url"":""https://e.dianping.com/smartBill/download/downlo"& _ 
             "adLink""},{""url"":""https://e.dianping.com/gateway/adviser/data?componentId=flowTab"& _ 
-            "leDownloadPCAsync&pageType=flowAnalysis""},{""url"":""/s"",""enable"":""false""},{""url"":"""& _ 
-            "https://mss-shon.sankuai.com/merchant-adviser-process/""},{""url"":""https://mss-sho"& _ 
-            "n.sankuai.com/settle/382206_%E6%89%93%E6%AC%BE%E8%AE%B0%E5%BD%95""},{""url"":""https"& _ 
-            "://mss-shon.sankuai.com/settle/382206_%E5%9B%A2%E8%B4%AD%E6%89%93%E6%AC%BE%E8%AE"& _ 
-            "%B0%E5%BD%95""},{""url"":""https://mss-shon.sankuai.com/settle/382206_团购收益明细""},{""url"& _ 
-            """:""https://mss-shon.sankuai.com/settle/382206_%E5%9B%A2%E8%B4%AD%E5%B7%B2%E7%BB%"& _ 
-            "93%E7%AE%97%E8%B4%A6%E5%8D%95%E6%98%8E%E7%BB%86""}]}")>  _
+            "leDownloadPCAsync&pageType=flowAnalysis""},{""url"":""https://mss-shon.sankuai.com/m"& _ 
+            "erchant-adviser-process/""},{""url"":""https://mss-shon.sankuai.com/settle/382206_%E"& _ 
+            "6%89%93%E6%AC%BE%E8%AE%B0%E5%BD%95""},{""url"":""https://mss-shon.sankuai.com/settle"& _ 
+            "/382206_%E5%9B%A2%E8%B4%AD%E6%89%93%E6%AC%BE%E8%AE%B0%E5%BD%95""},{""url"":""https:/"& _ 
+            "/mss-shon.sankuai.com/settle/382206_团购收益明细""},{""url"":""https://mss-shon.sankuai.co"& _ 
+            "m/merchant-adviser-process/%E5%AE%A2%E6%B5%81%E6%95%B0%E6%8D%AE""},{""url"":""https:"& _ 
+            "//e.dianping.com/cmm/crm/contract/list""},{""url"":""https://e.dianping.com/amp/gene"& _ 
+            "ral/account/subAccount/list""},"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"{""url"":""https://dppt.hebei.chinatax.gov.cn:8443/"& _ 
+            "szzhzz/qlfpcx/v1/queryFpjcxx""}]}")>  _
         Public Property jsonUrlList() As String
             Get
                 Return CType(Me("jsonUrlList"),String)
@@ -200,7 +202,12 @@ Namespace My
             "-total-text')[0].innerText"",""btnForward"":""document.getElementsByTagName('iframe'"& _ 
             ")[0].contentDocument.getElementsByClassName('anticon anticon-left')[1].click()"","& _ 
             """btnBackward"":""document.getElementsByTagName('iframe')[0].contentDocument.getEle"& _ 
-            "mentsByClassName('anticon anticon-right')[1].click()""}]}")>  _
+            "mentsByClassName('anticon anticon-right')[1].click()""},"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"{""url"":""https://dppt.he"& _ 
+            "bei.chinatax.gov.cn:8443/szzhzz/qlfpcx/v1/queryFpjcxx"",""lbPage"":""document.getEle"& _ 
+            "mentsByClassName('t-pagination__total')[0].innerText"",""btnForward"":""document.get"& _ 
+            "ElementsByClassName('t-pagination__btn t-pagination__btn-prev')[0].click()"",""btn"& _ 
+            "Backward"":""document.getElementsByClassName('t-pagination__btn t-pagination__btn-"& _ 
+            "next')[0].click()""}]}")>  _
         Public Property jsonBottomButtonScript() As String
             Get
                 Return CType(Me("jsonBottomButtonScript"),String)
@@ -278,6 +285,30 @@ Namespace My
             End Get
             Set
                 Me("strLoadingFormName") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("frmShow")>  _
+        Public Property strFrmShow() As String
+            Get
+                Return CType(Me("strFrmShow"),String)
+            End Get
+            Set
+                Me("strFrmShow") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("frmHidden")>  _
+        Public Property strFrmHidden() As String
+            Get
+                Return CType(Me("strFrmHidden"),String)
+            End Get
+            Set
+                Me("strFrmHidden") = value
             End Set
         End Property
     End Class

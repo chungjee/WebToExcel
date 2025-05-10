@@ -25,11 +25,11 @@ Public Class WebviewTaskPaneControl
             'Dim wvWebview As Microsoft.Web.WebView2.Core.CoreWebView2 = sender
             'wvWebview.AddHostObjectToScript()
             'wvCoreWevview2.AddScriptToExecuteOnDocumentCreatedAsync()
-            Debug.WriteLine("SourceChanged:IsNewDocument:" & e.IsNewDocument)
         End If
+        Debug.WriteLine("SourceChanged:IsNewDocument:" & e.IsNewDocument)
     End Sub
     Private Sub wvCoreWevview2_NotificationReceived(sender As Object, e As CoreWebView2NotificationReceivedEventArgs) Handles wvCoreWevview2.NotificationReceived
-        Debug.WriteLine(e.Notification)
+        Debug.WriteLine("NotificationReceived" & e.Notification.Body)
     End Sub
     Private Sub wvCoreWevview2_ContentLoading(sender As Object, e As CoreWebView2ContentLoadingEventArgs) Handles wvCoreWevview2.ContentLoading
         Debug.WriteLine("ContentLoading:" & e.IsErrorPage)
@@ -70,7 +70,7 @@ Public Class WebviewTaskPaneControl
     End Sub '向前按钮点击事件处理程序
     Private Sub lbCloseLoading_Click(sender As Object, e As EventArgs) Handles lbCloseLoading.Click
         Try
-            xlApp.Run("frmHidden")
+            xlApp.Run(Globals.Ribbons.Ribbon1.strFrmHidden)
         Catch ex As Exception
             Debug.WriteLine(ex.Message)
         End Try
@@ -221,4 +221,7 @@ Public Class WebviewTaskPaneControl
         End Try
     End Sub ' '使用DevTools执行脚本
 
+    Private Sub wvCoreWevview2_DOMContentLoaded(sender As Object, e As CoreWebView2DOMContentLoadedEventArgs) Handles wvCoreWevview2.DOMContentLoaded
+        Debug.WriteLine("DOMContentLoaded" & e.NavigationId)
+    End Sub
 End Class
